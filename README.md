@@ -1,0 +1,1 @@
+# FooTTy - typescripts
