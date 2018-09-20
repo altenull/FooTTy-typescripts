@@ -1,10 +1,19 @@
 {
   "extends": ["tslint:recommended", "tslint-react", "tslint-config-prettier"],
+  "rules": {
+    "ordered-imports": false,
+    "interface-name": [true, "never-prefix"],
+    "member-access": [true, "no-public"],
+    "no-console": false,
+    "rulesDirectory": "./nonexistent", // Redux configure
+    "object-literal-sort-keys": false,
+    "strictNullChecks": false,
+    "max-classes-per-file": [true, 2]
+  },
   "linterOptions": {
     "exclude": [
       "config/**/*.js",
-      "node_modules/**/*.ts",
-      "coverage/lcov-report/*.js"
+      "node_modules/**/*.ts"
     ]
   }
 }
