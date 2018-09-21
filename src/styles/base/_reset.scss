@@ -1,11 +1,13 @@
+@import 'utils';
+
 body {
+  @include boxSizing(border-box);
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
 }
 
 *,
 *:before,
 *:after {
-  box-sizing: inherit;
+  @include boxSizing(border-box);
 }
