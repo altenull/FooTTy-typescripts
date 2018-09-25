@@ -7,7 +7,7 @@ class App extends React.Component {
     return (
       <HashRouter>
         <Switch>
-          <Route exact={true} path='/' component={HomePage}/>
+          <Route exact={true} path={'/'} component={HomePage}/>
         </Switch>
       </HashRouter>
     );
