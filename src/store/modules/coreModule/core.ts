@@ -1,7 +1,7 @@
 import {createAction, handleActions} from 'redux-actions';
 import {Reducer} from 'redux';
 // import produce from 'immer';
-import {CoreActionCreators, CoreState} from './model';
+import {CoreActionCreators, CoreState} from './models';
 
 const INITIALIZE_CORE = '@@core/INITIALIZE_CORE';
 

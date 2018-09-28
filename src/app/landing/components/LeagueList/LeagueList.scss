@@ -1,0 +1,15 @@
+@import 'utils';
+
+.LeagueList {
+  &__item {
+    @include flex();
+    align-items: center;
+    cursor: pointer;
+    img {
+    }
+    span {
+      font-size: 2rem;
+      font-weight: 700;
+    }
+  }
+}

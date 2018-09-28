@@ -13,6 +13,4 @@ class LeagueService {
   }
 }
 
-const leagueService = new LeagueService();
-
-export default leagueService;
+export default new LeagueService();

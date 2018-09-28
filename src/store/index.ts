@@ -1,5 +1,5 @@
 import configure from './configure';
-import {CoreState} from './modules/coreModule/model';
+import {CoreState} from './modules/coreModule/models';
 
 const store = configure();
 

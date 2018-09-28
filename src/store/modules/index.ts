@@ -1,7 +1,7 @@
 import {combineReducers, Reducer} from 'redux';
 
 import {reducer as CoreReducer} from './coreModule/core';
-import {CoreState} from './coreModule/model';
+import {CoreState} from './coreModule/models';
 
 export interface RootState {
   core: CoreState;

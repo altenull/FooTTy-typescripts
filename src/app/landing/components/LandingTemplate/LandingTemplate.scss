@@ -1,0 +1,10 @@
+@import 'utils';
+
+.LandingTemplate {
+  @include flex();
+  justify-content: space-between;
+  align-items: center;
+  width: 90vw;
+  height: 100%;
+  margin: 0 auto;
+}
