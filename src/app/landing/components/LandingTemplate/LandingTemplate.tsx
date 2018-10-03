@@ -2,7 +2,7 @@ import * as React from 'react';
 import styles from './LandingTemplate.scss';
 import * as classNames from 'classnames/bind';
 import RevealText from '../RevealText/RevealText';
-import LeagueListContainer from '../../containers/LeagueListContainer';
+import LeagueList from '../LeagueList/LeagueList';
 
 const cx = classNames.bind(styles);
 
@@ -14,7 +14,7 @@ class LandingTemplate extends React.Component {
           <RevealText/>
         </div>
         <div className={cx('LandingTemplate__right-group')}>
-          <LeagueListContainer/>
+          <LeagueList/>
         </div>
       </div>
     );
