@@ -1,11 +1,10 @@
 import axios from 'axios';
-import {GetLatestSeasonPayload} from './models';
-
-const {REACT_APP_THE_SPORTS_DB_END_POINT, REACT_APP_THE_SPORTS_DB_API_KEY} = process.env;
+import {GetLeagueSeasonsPayload} from './models';
+import {foottyEndPoint} from '../service.env';
 
 class LeagueService {
-  getLatestSeason = ({leagueId}: GetLatestSeasonPayload) => {
-    const url = `${REACT_APP_THE_SPORTS_DB_END_POINT}/${REACT_APP_THE_SPORTS_DB_API_KEY}/lookupleague.php?id=${leagueId}&s=all`;
+  getLeagueSeasons = (payload: GetLeagueSeasonsPayload) => {
+    const url = `${foottyEndPoint}/lookupleague.php?id=${payload.leagueID}&s=all`;
 
     return axios.get(url)
                 .then((response) => response.data)

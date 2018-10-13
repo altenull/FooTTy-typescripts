@@ -1,0 +1,6 @@
+const {
+  REACT_APP_THE_SPORTS_DB_END_POINT,
+  REACT_APP_THE_SPORTS_DB_API_KEY
+} = process.env;
+
+export const foottyEndPoint = `${REACT_APP_THE_SPORTS_DB_END_POINT}/${REACT_APP_THE_SPORTS_DB_API_KEY}`;

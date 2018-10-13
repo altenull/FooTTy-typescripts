@@ -1,3 +1,3 @@
-export interface GetLatestSeasonPayload {
-  leagueId: string;
+export interface GetLeagueSeasonsPayload {
+  leagueID: string;
 }

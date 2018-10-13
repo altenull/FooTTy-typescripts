@@ -1,0 +1,42 @@
+@import 'utils';
+
+.LeagueLink {
+  @include flex();
+  align-items: center;
+  cursor: pointer;
+  text-decoration: none;
+  &__logo {
+    opacity: 0.5;
+    transform: scale(1);
+    transition: opacity 0.3s ease-out,
+                transform 0.3s ease-out;
+  }
+  &__title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #495057;
+    text-transform: uppercase;
+    transition: color 0.3s ease-out;
+  }
+  & + & {
+    margin-top: 1em;
+  }
+  &:hover {
+    .LeagueLink__logo {
+      opacity: 0.6;
+      transform: scale(1.1);
+    }
+    .LeagueLink__logo--PL {
+      content: url('../../../../assets/images/PL-badge.png');
+    }
+    .LeagueLink__logo--LL {
+      content: url('../../../../assets/images/LL-badge.png');
+    }
+    .LeagueLink__logo--BL {
+      content: url('../../../../assets/images/BL-badge.png');
+    }
+    .LeagueLink__title {
+      color: #868E96;
+    }
+  }
+}
