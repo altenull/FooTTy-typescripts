@@ -1,6 +1,8 @@
 import * as React from 'react';
 import PageTemplate from '../base/components/PageTemplate/PageTemplate';
 import {RouteProps} from 'react-router-dom';
+import {LeagueActions} from '../../store/actionCreators';
+import {GetLeagueSeasonsPayload} from '../../services/league/models';
 
 // interface Props {
 // }
@@ -10,7 +12,11 @@ class LeaguePage extends React.Component<any & RouteProps> {
     super(props);
     const {match} = this.props;
 
-    console.log(match.params.league);
+    const getLeagueSeasonsPayload: GetLeagueSeasonsPayload = {
+      leagueID: match.params.league
+    };
+
+    LeagueActions.getLeagueSeasons(getLeagueSeasonsPayload);
   }
 
   render() {

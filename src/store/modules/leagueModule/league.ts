@@ -1,6 +1,6 @@
 import {createAction, handleActions} from 'redux-actions';
 import {Reducer} from 'redux';
-// import produce from 'immer';
+import produce from 'immer';
 import {LeagueActionCreators, LeagueState} from './models';
 import LeagueService from '../../../services/league/league.service';
 import {GetLeagueSeasonsPayload} from '../../../services/league/models';
@@ -20,8 +20,14 @@ const initialState: LeagueState = {
 
 export const reducer: Reducer<LeagueState> = handleActions(
     {
-      [INITIALIZE_LEAGUE]: () => initialState
-      // [GET_LEAGUE_SEASONS]: (state: LeagueState) =>
+      [INITIALIZE_LEAGUE]: () => initialState,
+      [GET_LEAGUE_SEASONS]: (state: LeagueState, {payload}: any) => {
+        console.log('payload');
+        console.log(payload);
+        return produce(state, (draft) => {
+          draft.seasons = payload;
+        });
+      }
     },
     initialState
 );

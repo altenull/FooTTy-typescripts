@@ -1,13 +1,26 @@
-import {createStore, Store} from 'redux';
-import {devToolsEnhancer} from 'redux-devtools-extension';
-import {RootState, RootReducer} from './modules';
+import {createStore, applyMiddleware, Store} from 'redux';
+import {composeWithDevTools} from 'redux-devtools-extension';
+import {History} from 'history';
+import {routerMiddleware} from 'react-router-redux';
+import createSagaMiddleware from 'redux-saga';
+import {RootState, rootReducer} from './modules';
+import rootSaga from './sagas'
 
-const middleWares: any = []; // TODO: No need but used..
+const sagaMiddleware = createSagaMiddleware();
 
-const configure = (preloadedState?: any): Store<RootState> => createStore(
-  RootReducer,
-  preloadedState,
-  devToolsEnhancer(middleWares)
-);
+export default function configure(history: History, initialState: RootState): Store<RootState> {
+  const composeEnhancers: any = composeWithDevTools({});
 
-export default configure;
+  return createStore(
+      rootReducer,
+      initialState,
+      composeEnhancers(applyMiddleware(
+        routerMiddleware(history),
+        sagaMiddleware
+      )),
+  );
+}
+
+export function startSaga() {
+  sagaMiddleware.run(rootSaga);
+}

@@ -10,7 +10,7 @@ export interface RootState {
   league: LeagueState;
 }
 
-export const RootReducer: Reducer<RootState> = combineReducers<RootState>({
+export const rootReducer: Reducer<RootState> = combineReducers<RootState>({
   core: CoreReducer,
   league: LeagueReducer
 });
