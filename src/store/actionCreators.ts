@@ -1,7 +1,7 @@
 import {bindActionCreators} from 'redux';
 import store from './index';
-import {actionCreators as leagueActions} from './modules/leagueModule/league';
-import {LeagueActionCreators} from './modules/leagueModule/models';
+import {actionCreators as leagueActions} from './modules/league.module';
+import {LeagueActionCreators} from './models/league.model';
 
 const {dispatch} = store;
 

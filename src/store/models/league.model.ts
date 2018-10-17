@@ -1,4 +1,4 @@
-import {GetLeagueSeasonsPayload} from '../../../services/league/models';
+import {GetLeagueSeasonsPayload} from '../../services/league/models';
 
 export interface LeagueActionCreators {
   initializeLeague(): any;

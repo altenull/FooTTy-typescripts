@@ -1,9 +1,9 @@
 import {combineReducers, Reducer} from 'redux';
 
-import {reducer as CoreReducer} from './coreModule/core';
-import {reducer as LeagueReducer} from './leagueModule/league';
-import {CoreState} from './coreModule/models';
-import {LeagueState} from './leagueModule/models';
+import {reducer as CoreReducer} from './core.module';
+import {reducer as LeagueReducer} from './league.module';
+import {CoreState} from '../models/core.model';
+import {LeagueState} from '../models/league.model';
 
 export interface RootState {
   core: CoreState;
