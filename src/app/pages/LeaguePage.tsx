@@ -13,7 +13,7 @@ class LeaguePage extends React.Component<any & RouteProps> {
     const {match} = this.props;
 
     const getLeagueSeasonsPayload: GetLeagueSeasonsPayload = {
-      leagueID: match.params.league
+      leagueId: match.params.league
     };
 
     LeagueActions.getLeagueSeasons(getLeagueSeasonsPayload);

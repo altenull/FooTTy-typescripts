@@ -21,6 +21,6 @@ export default function configure(history: History, initialState: RootState): St
   );
 }
 
-export function startSaga() {
+export function runSaga() {
   sagaMiddleware.run(rootSaga);
 }

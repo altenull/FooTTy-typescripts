@@ -4,11 +4,12 @@ import {foottyEndPoint} from '../service.env';
 
 class LeagueService {
   getLeagueSeasons = (payload: GetLeagueSeasonsPayload) => {
-    const url: string = `${foottyEndPoint}/lookupleague.php?id=${payload.leagueID}&s=all`;
+    console.log(payload);
+    const url2: string = `${foottyEndPoint}/lookupleague.php?id=${payload.leagueId}&s=all`;
 
-    return axios.get(url)
+    return axios.get(url2)
                 .then((response) => response.data)
-                .then((leagues): GetLeagueSeasonsResponse[] => leagues)
+                .then((leagues: GetLeagueSeasonsResponse[]) => leagues)
                 .catch((error) => console.error(error));
   }
 }

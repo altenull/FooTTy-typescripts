@@ -8,12 +8,12 @@ const cx = classNames.bind(styles);
 
 class LeagueLinkList extends React.Component {
   render() {
-    const leagueLinkList = Object.keys(leagueCollection).map((leagueID) => {
-      const leagueInfo = leagueCollection[leagueID];
+    const leagueLinkList = Object.keys(leagueCollection).map((leagueId) => {
+      const leagueInfo = leagueCollection[leagueId];
 
       return (
-        <LeagueLink key={leagueID}
-                    linkTo={leagueID}
+        <LeagueLink key={leagueId}
+                    linkTo={leagueId}
                     alias={leagueInfo.alias}
                     fullName={leagueInfo.fullName}
                     displayName={leagueInfo.displayName}

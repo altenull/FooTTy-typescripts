@@ -1,25 +1,24 @@
-import {all, call, put, takeEvery} from 'redux-saga/effects';
+import {call, takeLatest, all, put} from 'redux-saga/effects';
 import leagueService from '../../services/league/league.service';
-import {GetLeagueSeasonsPayload} from '../../services/league/models';
 import {GET_LEAGUE_SEASONS} from '../modules/league.module';
+import {GetLeagueSeasonsAction} from '../models/league.model';
+import {createAsyncActionCreator} from '../../lib/functions/asyncAction';
 
-// TODO: solve takeEvent parameter type
-function* takeGetLeagueSeasons() {
-  yield takeEvery(GET_LEAGUE_SEASONS, getLeagueSeasons);
-}
+export const getLeagueSeasonsAsyncActionCreator = createAsyncActionCreator(GET_LEAGUE_SEASONS);
 
-export function* getLeagueSeasons(payload: GetLeagueSeasonsPayload) {
-  const result = yield call(() => leagueService.getLeagueSeasons(payload));
-  console.log(result);
+export function* getLeagueSeasons(action: GetLeagueSeasonsAction) {
+  yield put(getLeagueSeasonsAsyncActionCreator.request());
 
-  yield put({
-    type: 'GET_LEAGUE_SEASONS_SUCCESS',
-    payload: result.json()
-  })
+  try {
+    const response = yield call(() => leagueService.getLeagueSeasons(action.payload));
+    yield put(getLeagueSeasonsAsyncActionCreator.success(response.leagues));
+  } catch (error) {
+    yield put(getLeagueSeasonsAsyncActionCreator.fail());
+  }
 }
 
 export default function* leagueSaga() {
   yield all([
-    takeGetLeagueSeasons()
+    takeLatest(GET_LEAGUE_SEASONS.INDEX as any, getLeagueSeasons)
   ])
 }

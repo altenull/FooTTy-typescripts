@@ -1,5 +1,5 @@
 export interface GetLeagueSeasonsPayload {
-  leagueID: string;
+  leagueId: string;
 }
 
 export interface GetLeagueSeasonsResponse {
