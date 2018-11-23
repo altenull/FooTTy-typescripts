@@ -24,33 +24,28 @@ const initialState: LeagueState = {
 };
 
 export const reducer: Reducer<LeagueState> = handleActions(
-    {
-      [INITIALIZE_LEAGUE]: () => initialState,
-      [GET_LEAGUE_SEASONS.REQUEST]: (state: LeagueState) => {
-        return produce(state, (draft) => {
-          draft.isGetSeasonsLoading = true;
-          draft.isGetSeasonsLoaded = false;
-        });
-      },
-      [GET_LEAGUE_SEASONS.SUCCESS]: (state: LeagueState, action) => {
-        // [{strSeason: '1'}, {strSeason: '2'}, ...]
-        // const seasons = action.payload.toArray().reduce((acc, data) => {
-        //   return [
-        //     ...acc,
-        //     data.strSeason
-        //   ];
-        // }, []);
-        return produce(state, (draft) => {
-          draft.isGetSeasonsLoading = false;
-          draft.isGetSeasonsLoaded = true;
-          // draft.seasons = action.payload;
-        });
-      },
-      [GET_LEAGUE_SEASONS.FAIL]: (state: LeagueState) => {
-        return produce(state, (draft) => {
-          draft.isGetSeasonsLoading = false;
-        });
-      }
+  {
+    [INITIALIZE_LEAGUE]: () => initialState,
+    [GET_LEAGUE_SEASONS.REQUEST]: (state: LeagueState) => {
+      return produce(state, (draft) => {
+        draft.isGetSeasonsLoading = true;
+        draft.isGetSeasonsLoaded = false;
+      });
     },
-    initialState
+    [GET_LEAGUE_SEASONS.SUCCESS]: (state: LeagueState, action) => {
+      return produce(state, (draft) => {
+        if (action.payload != null) {
+          draft.seasons = action.payload as any;
+        }
+        draft.isGetSeasonsLoading = false;
+        draft.isGetSeasonsLoaded = true;
+      });
+    },
+    [GET_LEAGUE_SEASONS.FAIL]: (state: LeagueState) => {
+      return produce(state, (draft) => {
+        draft.isGetSeasonsLoading = false;
+      });
+    }
+  },
+  initialState
 );

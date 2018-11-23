@@ -22,3 +22,11 @@ export interface LeagueState {
 export interface GetLeagueSeasonsAction extends ActionType {
   payload: GetLeagueSeasonsPayload;
 }
+
+export interface LeagueSeason {
+  strSeason: string;
+}
+
+export interface GetLeagueSeasonsResponse {
+  leagues: LeagueSeason[];
+}
