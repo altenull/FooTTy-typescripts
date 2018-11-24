@@ -3,6 +3,7 @@ import PageTemplate from '../base/components/PageTemplate/PageTemplate';
 import {RouteProps} from 'react-router-dom';
 import {LeagueActions} from '../../store/actionCreators';
 import {GetLeagueSeasonsPayload} from '../../services/league/models';
+import ParallelogramHeader from '../base/components/ParallelogramHeader/ParallelogramHeader';
 
 // interface Props {
 // }
@@ -20,9 +21,11 @@ class LeaguePage extends React.Component<any & RouteProps> {
   }
 
   render() {
+    const pageHeader = <ParallelogramHeader/>;
+
     return (
-      <PageTemplate>
-        LeaguePage
+      <PageTemplate pageHeader={pageHeader}>
+        Hey.
       </PageTemplate>
     );
   }

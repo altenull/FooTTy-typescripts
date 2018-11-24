@@ -5,16 +5,22 @@ import * as classNames from 'classnames/bind';
 const cx = classNames.bind(styles);
 
 interface Props {
+  pageHeader?: React.ReactNode;
   children: React.ReactNode;
 }
 
 class PageTemplate extends React.Component<Props> {
   render() {
-    const {children} = this.props;
+    const {pageHeader, children} = this.props;
 
     return (
       <div className={cx('PageTemplate')}>
-        <main>{children}</main>
+        <header>
+          {pageHeader}
+        </header>
+        <main>
+          {children}
+        </main>
       </div>
     );
   }

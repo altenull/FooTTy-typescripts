@@ -1,0 +1,10 @@
+.ParallelogramHeader {
+  display: inline-flex;
+  align-items: center;
+  height: 56px;
+  padding: 0 40px;
+  font-size: 1.75rem;
+  color: #FFFFFF;
+  clip-path: polygon(10% 0%, 100% 0%, 90% 100%, 0% 100%);
+  background-image: linear-gradient(315deg, #5B6467 0%, #8B939A 74%);
+}
