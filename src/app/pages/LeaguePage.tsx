@@ -11,14 +11,23 @@ import ParallelogramHeader from '../base/components/ParallelogramHeader/Parallel
 class LeaguePage extends React.Component<any & RouteProps> {
   constructor(props: any) {
     super(props);
+    this.initLeaguePage();
+  }
+
+  initLeaguePage = async () => {
     const {match} = this.props;
 
     const getLeagueSeasonsPayload: GetLeagueSeasonsPayload = {
       leagueId: match.params.league
     };
 
-    LeagueActions.getLeagueSeasons(getLeagueSeasonsPayload);
-  }
+    try {
+      await LeagueActions.getLeagueSeasons(getLeagueSeasonsPayload);
+      // TODO: Should Request getLeagueTable API.... but where..?
+    } catch(error) {
+      console.error(error);
+    }
+  };
 
   render() {
     const pageHeader = <ParallelogramHeader/>;

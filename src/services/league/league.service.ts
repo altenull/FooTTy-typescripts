@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {GetLeagueSeasonsPayload} from './models';
+import {GetLeagueSeasonsPayload, GetLeagueTablePayload} from './models';
 import {foottyEndPoint} from '../service.env';
 
 class LeagueService {
@@ -9,9 +9,15 @@ class LeagueService {
     return axios.get(url)
                 .then((response) => response.data)
                 .catch((error) => console.error(error));
-  }
+  };
+
+  getLeagueTable = (payload: GetLeagueTablePayload) => {
+    const url: string = `${foottyEndPoint}/lookuptable.php?l=${payload.leagueId}&s=${payload.selectedSeason}`;
+
+    return axios.get(url)
+        .then((response) => response.data)
+        .catch((error) => console.error(error));
+  };
 }
 
-const leagueService = new LeagueService();
-
-export default leagueService;
+export default new LeagueService();

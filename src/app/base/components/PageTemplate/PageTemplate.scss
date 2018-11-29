@@ -3,6 +3,11 @@
   background-image: url('../../../../assets/images/background.png');
   background-position: center;
   background-size: cover;
+  header {
+    position: fixed;
+    left: 0;
+    top: 0;
+  }
   main {
     height: 100%;
   }
