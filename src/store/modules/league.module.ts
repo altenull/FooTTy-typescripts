@@ -23,7 +23,7 @@ export const actionCreators: LeagueActionCreators = {
 };
 
 const initialState: LeagueState = {
-  selectedLeague: '',
+  selectedSeason: '',
   seasons: [],
   isGetSeasonsLoading: false,
   isGetSeasonsLoaded: false,
@@ -47,7 +47,7 @@ export const reducer: Reducer<LeagueState> = handleActions(
       return produce(state, (draft) => {
         if (action.payload != null) {
           draft.seasons = action.payload as any;
-          draft.selectedLeague = action.payload[0]; // [0] is latest season
+          draft.selectedSeason = action.payload[0]; // [0] is latest season
         }
         draft.isGetSeasonsLoading = false;
         draft.isGetSeasonsLoaded = true;
@@ -81,7 +81,7 @@ export const reducer: Reducer<LeagueState> = handleActions(
     [SET_SELECTED_SEASON]: (state: LeagueState, action) => {
       return produce(state, (draft) => {
         if (action.payload != null) {
-          draft.selectedLeague = action.payload as any;
+          draft.selectedSeason = action.payload as any;
         }
       })
     }

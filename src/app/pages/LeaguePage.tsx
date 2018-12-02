@@ -1,36 +1,43 @@
 import * as React from 'react';
-import PageTemplate from '../base/components/PageTemplate/PageTemplate';
 import {RouteProps} from 'react-router-dom';
 import {LeagueActions} from '../../store/actionCreators';
 import {GetLeagueSeasonsPayload} from '../../services/league/models';
+import {leagueCollection} from '../../lib/variables';
+
+import PageTemplate from '../base/components/PageTemplate/PageTemplate';
 import ParallelogramHeader from '../base/components/ParallelogramHeader/ParallelogramHeader';
 
-// interface Props {
-// }
-
 class LeaguePage extends React.Component<any & RouteProps> {
+  currentLeagueId: string = '';
+
   constructor(props: any) {
     super(props);
+    const {match} = this.props;
+    this.currentLeagueId = match.params.league;
     this.initLeaguePage();
   }
 
-  initLeaguePage = async () => {
-    const {match} = this.props;
+  componentWillUnmount() {
+    LeagueActions.initializeLeague();
+  }
 
+  initLeaguePage = async () => {
     const getLeagueSeasonsPayload: GetLeagueSeasonsPayload = {
-      leagueId: match.params.league
+      leagueId: this.currentLeagueId
     };
 
     try {
       await LeagueActions.getLeagueSeasons(getLeagueSeasonsPayload);
-      // TODO: Should Request getLeagueTable API.... but where..?
     } catch(error) {
       console.error(error);
     }
   };
 
   render() {
-    const pageHeader = <ParallelogramHeader/>;
+    const pageHeaderBadge: string = leagueCollection[this.currentLeagueId].badge;
+    const pageHeaderCopy: string = leagueCollection[this.currentLeagueId].displayName;
+    const pageHeader: React.ReactNode = <ParallelogramHeader badge={pageHeaderBadge}
+                                                             copy={pageHeaderCopy}/>;
 
     return (
       <PageTemplate pageHeader={pageHeader}>

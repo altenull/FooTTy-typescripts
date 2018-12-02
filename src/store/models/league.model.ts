@@ -16,7 +16,7 @@ export interface LeagueActionCreators {
 }
 
 export interface LeagueState {
-  selectedLeague: string;
+  selectedSeason: string;
   seasons: string[];
   isGetSeasonsLoading: boolean;
   isGetSeasonsLoaded: boolean;

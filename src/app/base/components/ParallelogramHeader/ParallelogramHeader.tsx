@@ -4,11 +4,23 @@ import * as classNames from 'classnames/bind';
 
 const cx = classNames.bind(styles);
 
-class ParallelogramHeader extends React.Component {
+interface Props {
+  badge: string;
+  copy: string;
+}
+
+class ParallelogramHeader extends React.Component<Props> {
   render() {
+    const {badge, copy} = this.props;
+
     return (
       <div className={cx('ParallelogramHeader')}>
-        ParallelogramHeader
+        {!!badge &&
+          <img className={cx('ParallelogramHeader__img')}
+               src={badge}
+               alt={copy}/>
+        }
+        {copy}
       </div>
     );
   }
