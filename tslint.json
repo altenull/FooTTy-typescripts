@@ -9,7 +9,8 @@
     "object-literal-sort-keys": false,
     "strictNullChecks": false,
     "max-classes-per-file": [true, 2],
-    "jsx-no-lambda": false
+    "jsx-no-lambda": false,
+    "no-debugger": false
   },
   "linterOptions": {
     "exclude": [

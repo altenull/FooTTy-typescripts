@@ -21,16 +21,11 @@ class LeaguePage extends React.Component<any & RouteProps> {
     LeagueActions.initializeLeague();
   }
 
-  initLeaguePage = async () => {
+  initLeaguePage = () => {
     const getLeagueSeasonsPayload: GetLeagueSeasonsPayload = {
       leagueId: this.currentLeagueId
     };
-
-    try {
-      await LeagueActions.getLeagueSeasons(getLeagueSeasonsPayload);
-    } catch(error) {
-      console.error(error);
-    }
+    LeagueActions.getLeagueSeasons(getLeagueSeasonsPayload);
   };
 
   render() {
