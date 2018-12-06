@@ -6,6 +6,7 @@ import {leagueCollection} from '../../lib/variables';
 
 import PageTemplate from '../base/components/PageTemplate/PageTemplate';
 import ParallelogramHeader from '../base/components/ParallelogramHeader/ParallelogramHeader';
+import SeasonSelectorContainer from '../league/containers/SeasonSelector.container';
 
 class LeaguePage extends React.Component<any & RouteProps> {
   currentLeagueId: string = '';
@@ -14,16 +15,16 @@ class LeaguePage extends React.Component<any & RouteProps> {
     super(props);
     const {match} = this.props;
     this.currentLeagueId = match.params.league;
-    this.initLeaguePage();
+    this.initLeaguePage(this.currentLeagueId);
   }
 
   componentWillUnmount() {
     LeagueActions.initializeLeague();
   }
 
-  initLeaguePage = () => {
+  initLeaguePage = (leagueId: string): void => {
     const getLeagueSeasonsPayload: GetLeagueSeasonsPayload = {
-      leagueId: this.currentLeagueId
+      leagueId
     };
     LeagueActions.getLeagueSeasons(getLeagueSeasonsPayload);
   };
@@ -36,7 +37,7 @@ class LeaguePage extends React.Component<any & RouteProps> {
 
     return (
       <PageTemplate pageHeader={pageHeader}>
-        Hey.
+        <SeasonSelectorContainer/>
       </PageTemplate>
     );
   }
