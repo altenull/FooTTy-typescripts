@@ -81,7 +81,7 @@ export const reducer: Reducer<LeagueState> = handleActions(
     [SET_SELECTED_SEASON]: (state: LeagueState, action) => {
       return produce(state, (draft) => {
         if (action.payload != null) {
-          draft.selectedSeason = action.payload as any;
+          draft.selectedSeason = action.payload.selectedSeason as any;
         }
       })
     }

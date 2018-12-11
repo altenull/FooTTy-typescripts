@@ -23,10 +23,7 @@ class LeaguePage extends React.Component<any & RouteProps> {
   }
 
   initLeaguePage = (leagueId: string): void => {
-    const getLeagueSeasonsPayload: GetLeagueSeasonsPayload = {
-      leagueId
-    };
-    LeagueActions.getLeagueSeasons(getLeagueSeasonsPayload);
+    LeagueActions.getLeagueSeasons({leagueId} as GetLeagueSeasonsPayload);
   };
 
   render() {
