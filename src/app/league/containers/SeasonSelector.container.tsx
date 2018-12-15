@@ -10,26 +10,50 @@ interface Props {
   seasons: string[];
 }
 
-class SeasonSelectorContainer extends React.Component<Props> {
-  shouldComponentUpdate(nextProps: Readonly<Props>, nextState: Readonly<{}>, nextContext: any): boolean {
-    return this.props.selectedSeason !== nextProps.selectedSeason;
+interface States {
+  isExpanded: boolean
+}
+
+class SeasonSelectorContainer extends React.Component<Props, States> {
+  state = {
+    isExpanded: false
+  };
+
+  shouldComponentUpdate(nextProps: Readonly<Props>, nextState: Readonly<States>, nextContext: any): boolean {
+    return (this.props.selectedSeason !== nextProps.selectedSeason)
+        || (this.state.isExpanded !== nextState.isExpanded);
   }
+
+  handleExpandability = (): void => {
+    this.setState({
+      isExpanded: !this.state.isExpanded
+    });
+  };
 
   handleSelectSeason = (selectedSeason: string): void => {
     const setSelectedSeasonPayload: SetSelectedSeasonPayload = {
       selectedSeason
     };
     LeagueActions.setSelectedSeason(setSelectedSeasonPayload);
+
+    // TODO: Request League Table & setState(ixExpanded: false)
+    this.setState({
+      isExpanded: false
+    });
   };
 
   render() {
     const {selectedSeason, seasons} = this.props;
-    const {handleSelectSeason} = this;
+    const {isExpanded} = this.state;
+    const {handleExpandability, handleSelectSeason} = this;
+
     const selectableSeasons: string[] = seasons.filter((season: string) => season !== selectedSeason);
 
     return (
-      <SeasonSelector selectedSeason={selectedSeason}
+      <SeasonSelector isExpanded={isExpanded}
+                      selectedSeason={selectedSeason}
                       selectableSeasons={selectableSeasons}
+                      onExpandability={handleExpandability}
                       onSelectSeason={handleSelectSeason}/>
     );
   }
