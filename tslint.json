@@ -1,5 +1,6 @@
 {
   "extends": ["tslint:recommended", "tslint-react", "tslint-config-prettier"],
+  "defaultSeverity": "warning",
   "rules": {
     "ordered-imports": false,
     "interface-name": [true, "never-prefix"],
@@ -7,10 +8,11 @@
     "no-console": false,
     "rulesDirectory": "./nonexistent", // Redux configure
     "object-literal-sort-keys": false,
-    "strictNullChecks": false,
+    "strictNullChecks": true,
     "max-classes-per-file": [true, 2],
     "jsx-no-lambda": false,
-    "no-debugger": false
+    "no-debugger": false,
+    "no-unused-variable": true
   },
   "linterOptions": {
     "exclude": [
