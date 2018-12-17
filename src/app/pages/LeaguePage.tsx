@@ -7,6 +7,7 @@ import {leagueCollection} from '../../lib/variables';
 import PageTemplate from '../base/components/PageTemplate/PageTemplate';
 import ParallelogramHeader from '../base/components/ParallelogramHeader/ParallelogramHeader';
 import SeasonSelectorContainer from '../league/containers/SeasonSelector.container';
+import TwoColumnTemplate from '../base/components/TwoColumnTemplate/TwoColumnTemplate';
 
 class LeaguePage extends React.Component<any & RouteProps> {
   currentLeagueId: string = '';
@@ -32,9 +33,12 @@ class LeaguePage extends React.Component<any & RouteProps> {
     const pageHeader: React.ReactNode = <ParallelogramHeader badge={pageHeaderBadge}
                                                              copy={pageHeaderCopy}/>;
 
+    const left: React.ReactNode = <SeasonSelectorContainer leagueId={this.currentLeagueId}/>;
+
     return (
       <PageTemplate pageHeader={pageHeader}>
-        <SeasonSelectorContainer/>
+        <TwoColumnTemplate left={left}
+                           right={<div>Right</div>}/>
       </PageTemplate>
     );
   }

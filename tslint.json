@@ -1,6 +1,5 @@
 {
   "extends": ["tslint:recommended", "tslint-react", "tslint-config-prettier"],
-  "defaultSeverity": "warning",
   "rules": {
     "ordered-imports": false,
     "interface-name": [true, "never-prefix"],
@@ -11,8 +10,7 @@
     "strictNullChecks": true,
     "max-classes-per-file": [true, 2],
     "jsx-no-lambda": false,
-    "no-debugger": false,
-    "no-unused-variable": true
+    "no-debugger": false
   },
   "linterOptions": {
     "exclude": [

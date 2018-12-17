@@ -6,7 +6,9 @@ import {
   GetLeagueSeasonsResponse,
   GetLeagueTableAction,
   GetLeagueTableResponse,
-  LeagueSeason
+  LeagueSeason,
+  LeagueTable,
+  ObjectizedLeagueTable
 } from '../models/league.model';
 import {createAsyncActionCreator} from '../../lib/functions/asyncAction';
 
@@ -36,10 +38,20 @@ export function* getLeagueTable(action: GetLeagueTableAction) {
   yield put(getLeagueTableAsyncActionCreator.request());
 
   try {
+    // TODO: Ordering league table properly
     const response: GetLeagueTableResponse = yield call(() => leagueService.getLeagueTable(action.payload));
-    // TODO: handle getLeagueTable response to store to leagueTable state
-    console.log('response', response);
-    // yield put(getLeagueTableAsyncActionCreator.success());
+    const leagueTable: {[teamId: string]: ObjectizedLeagueTable} = response.table.reduce((acc: {[teamId: string]: ObjectizedLeagueTable}, table: LeagueTable) => {
+      const {teamid: extractedValue, ...newTable} = table;
+
+      return {
+        ...acc,
+        [table.teamid]: {
+          ...newTable
+        }
+      };
+    }, {});
+
+    yield put(getLeagueTableAsyncActionCreator.success(leagueTable));
   } catch (error) {
     yield put(getLeagueTableAsyncActionCreator.fail());
   }

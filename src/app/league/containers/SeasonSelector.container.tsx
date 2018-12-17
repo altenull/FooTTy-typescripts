@@ -4,8 +4,10 @@ import {RootState} from '../../../store/modules';
 import {LeagueActions} from '../../../store/actionCreators';
 import {SetSelectedSeasonPayload} from '../../../store/models/league.model';
 import SeasonSelector from '../components/SeasonSelector/SeasonSelector';
+import {GetLeagueTablePayload} from '../../../services/league/models';
 
 interface Props {
+  leagueId: string;
   selectedSeason: string;
   seasons: string[];
 }
@@ -20,8 +22,22 @@ class SeasonSelectorContainer extends React.Component<Props, States> {
   };
 
   shouldComponentUpdate(nextProps: Readonly<Props>, nextState: Readonly<States>, nextContext: any): boolean {
-    return (this.props.selectedSeason !== nextProps.selectedSeason)
-        || (this.state.isExpanded !== nextState.isExpanded);
+    return this.props.leagueId !== nextProps.leagueId
+        || this.props.selectedSeason !== nextProps.selectedSeason
+        || this.state.isExpanded !== nextState.isExpanded;
+  }
+
+  componentDidUpdate(prevProps: Readonly<Props>, prevState: Readonly<States>, snapshot?: any): void {
+    const {leagueId, selectedSeason} = this.props;
+
+    if (!!selectedSeason && (prevProps.selectedSeason !== selectedSeason)) {
+      const getLeagueTablePayload: GetLeagueTablePayload = {
+        leagueId,
+        selectedSeason
+      };
+
+      LeagueActions.getLeagueTable(getLeagueTablePayload);
+    }
   }
 
   handleExpandability = (): void => {

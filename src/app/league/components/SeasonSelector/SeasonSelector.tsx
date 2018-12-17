@@ -22,7 +22,6 @@ class SeasonSelector extends React.Component<Props> {
       onSelectSeason
     } = this.props;
 
-
     const displayedSeason: React.ReactNode = !isExpanded
       ? (
         <li className={cx('SeasonSelector__li')}

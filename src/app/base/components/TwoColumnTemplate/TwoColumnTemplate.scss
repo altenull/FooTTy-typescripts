@@ -1,0 +1,13 @@
+.TwoColumnTemplate {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+
+  .TwoColumnTemplate__left {
+    flex: 1;
+  }
+
+  .TwoColumnTemplate__right {
+    flex: 1;
+  }
+}
