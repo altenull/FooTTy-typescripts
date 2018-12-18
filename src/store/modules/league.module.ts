@@ -28,7 +28,7 @@ const initialState: LeagueState = {
   isGetSeasonsLoading: false,
   isGetSeasonsLoaded: false,
   getSeasonsError: null,
-  leagueTable: [],
+  leagueTable: null,
   isGetLeagueTableLoading: false,
   isGetLeagueTableLoaded: false,
   getLeagueTableError: null

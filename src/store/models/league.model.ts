@@ -21,7 +21,7 @@ export interface LeagueState {
   isGetSeasonsLoading: boolean;
   isGetSeasonsLoaded: boolean;
   getSeasonsError: string | null;
-  leagueTable: LeagueTable[];
+  leagueTable: {[teamId: string]: ObjectizedLeagueTable} | null;
   isGetLeagueTableLoading: boolean;
   isGetLeagueTableLoaded: boolean;
   getLeagueTableError: string | null;

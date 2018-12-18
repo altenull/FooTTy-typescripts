@@ -38,15 +38,14 @@ export function* getLeagueTable(action: GetLeagueTableAction) {
   yield put(getLeagueTableAsyncActionCreator.request());
 
   try {
-    // TODO: Ordering league table properly
     const response: GetLeagueTableResponse = yield call(() => leagueService.getLeagueTable(action.payload));
     const leagueTable: {[teamId: string]: ObjectizedLeagueTable} = response.table.reduce((acc: {[teamId: string]: ObjectizedLeagueTable}, table: LeagueTable) => {
-      const {teamid: extractedValue, ...newTable} = table;
+      const {teamid: extractedValue, ...tableEntity} = table;
 
       return {
         ...acc,
         [table.teamid]: {
-          ...newTable
+          ...tableEntity
         }
       };
     }, {});
