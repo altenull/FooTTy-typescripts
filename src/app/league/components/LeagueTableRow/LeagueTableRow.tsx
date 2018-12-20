@@ -8,18 +8,22 @@ const cx = classNames.bind(styles);
 interface Props {
   teamId: string;
   rank: number;
+  badgeUrl: string | null;
   data: ObjectizedLeagueTable;
   onSelectTeam(teamId: string): void;
 }
 
 class LeagueTableRow extends React.Component<Props> {
   render() {
-    const {teamId, rank, data, onSelectTeam} = this.props;
+    const {teamId, rank, badgeUrl, data, onSelectTeam} = this.props;
+
 
     return (
       <tr className={cx('LeagueTableRow')} onClick={() => onSelectTeam(teamId)}>
         <th className={cx('LeagueTableRow__th')}>{rank}</th>
-        <td className={cx('LeagueTableRow__td')}>이미지, {data.name}</td>
+        <td className={cx('LeagueTableRow__td')}>
+          <span>{badgeUrl ? <img src={badgeUrl} width={'36px'}/> : 'No image'}</span>, {data.name}
+        </td>
         <td className={cx('LeagueTableRow__td')}>{data.played}</td>
         <td className={cx('LeagueTableRow__td')}>{data.win}</td>
         <td className={cx('LeagueTableRow__td')}>{data.draw}</td>

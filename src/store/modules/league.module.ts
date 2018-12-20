@@ -4,14 +4,14 @@ import produce from 'immer';
 import {LeagueActionCreators, LeagueState} from '../models/league.model';
 import {createAsyncActionTypes} from '../../lib/functions/asyncAction';
 
-const INITIALIZE_LEAGUE = '@@league/INITIALIZE_LEAGUE';
+const RESET_LEAGUE = '@@league/RESET_LEAGUE';
 export const GET_LEAGUE_SEASONS = createAsyncActionTypes('@@league/GET_LEAGUE_SEASONS');
 export const GET_LEAGUE_TABLE = createAsyncActionTypes('@@league/GET_LEAGUE_TABLE');
 export const GET_ALL_TEAMS_IN_LEAGUE = createAsyncActionTypes('@@league/GET_ALL_TEAMS_IN_LEAGUE');
 const SET_SELECTED_SEASON = '@@league/SET_SELECTED_SEASON';
 
 export const actionCreators: LeagueActionCreators = {
-  initializeLeague: createAction(INITIALIZE_LEAGUE),
+  resetLeague: createAction(RESET_LEAGUE),
   getLeagueSeasons: createAction(GET_LEAGUE_SEASONS.INDEX),
   getLeagueSeasonsRequest: createAction(GET_LEAGUE_SEASONS.REQUEST),
   getLeagueSeasonsComplete: createAction(GET_LEAGUE_SEASONS.SUCCESS),
@@ -31,10 +31,10 @@ const initialState: LeagueState = {
   selectedSeason: '',
   seasons: [],
   allTeamsInLeague: null,
+  leagueTable: null,
   isGetSeasonsLoading: false,
   isGetSeasonsLoaded: false,
   getSeasonsError: null,
-  leagueTable: null,
   isGetLeagueTableLoading: false,
   isGetLeagueTableLoaded: false,
   getLeagueTableError: null,
@@ -45,7 +45,7 @@ const initialState: LeagueState = {
 
 export const reducer: Reducer<LeagueState> = handleActions(
   {
-    [INITIALIZE_LEAGUE]: () => initialState,
+    [RESET_LEAGUE]: () => initialState,
     [GET_LEAGUE_SEASONS.REQUEST]: (state: LeagueState) => {
       return produce(state, (draft) => {
         draft.isGetSeasonsLoading = true;

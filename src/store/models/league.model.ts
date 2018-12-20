@@ -3,7 +3,7 @@ import {GetAllTeamsInLeaguePayload, GetLeagueSeasonsPayload, GetLeagueTablePaylo
 
 // Redux
 export interface LeagueActionCreators {
-  initializeLeague(): any;
+  resetLeague(): any;
   getLeagueSeasons(payload: GetLeagueSeasonsPayload): any;
   getLeagueSeasonsRequest(): any;
   getLeagueSeasonsComplete(): any;
@@ -19,15 +19,14 @@ export interface LeagueActionCreators {
   setSelectedSeason(payload: SetSelectedSeasonPayload): any;
 }
 
-// TODO:
 export interface LeagueState {
   selectedSeason: string;
   seasons: string[];
-  allTeamsInLeague: null;
+  allTeamsInLeague: {[teamId: string]: ObjectizedTeamInLeague} | null;
+  leagueTable: {[teamId: string]: ObjectizedLeagueTable} | null;
   isGetSeasonsLoading: boolean;
   isGetSeasonsLoaded: boolean;
   getSeasonsError: string | null;
-  leagueTable: {[teamId: string]: ObjectizedLeagueTable} | null;
   isGetLeagueTableLoading: boolean;
   isGetLeagueTableLoaded: boolean;
   getLeagueTableError: string | null;

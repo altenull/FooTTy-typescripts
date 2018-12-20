@@ -1,12 +1,13 @@
 import * as React from 'react';
 import {connect} from 'react-redux';
 import {RootState} from '../../../store/modules';
-import {ObjectizedLeagueTable} from '../../../store/models/league.model';
+import {ObjectizedLeagueTable, ObjectizedTeamInLeague} from '../../../store/models/league.model';
 import LeagueTable from '../components/LeagueTable/LeagueTable';
 import LeagueTableRow from '../components/LeagueTableRow/LeagueTableRow';
 
 interface Props {
   leagueTable: {[teamId: string]: ObjectizedLeagueTable} | null;
+  allTeamsInLeague: {[teamId: string]: ObjectizedTeamInLeague} | null;
 }
 
 class LeagueTableContainer extends React.Component<Props> {
@@ -15,10 +16,10 @@ class LeagueTableContainer extends React.Component<Props> {
   };
 
   render() {
-    const {leagueTable} = this.props;
+    const {leagueTable, allTeamsInLeague} = this.props;
     const {handleSelectTeam} = this;
 
-    if (!leagueTable) {
+    if (!leagueTable || !allTeamsInLeague) {
       return null;
     }
 
@@ -28,10 +29,13 @@ class LeagueTableContainer extends React.Component<Props> {
     });
 
     const tableRows: React.ReactNode = orderedTeamIds.map((teamId: string, index: number) => {
+      const badgeUrl: string | null = (allTeamsInLeague[teamId] && allTeamsInLeague[teamId].badgeUrl) || null;
+
       return (
         <LeagueTableRow key={teamId}
                         teamId={teamId}
                         rank={index}
+                        badgeUrl={badgeUrl}
                         data={leagueTable[teamId]}
                         onSelectTeam={handleSelectTeam}/>
       );
@@ -45,7 +49,8 @@ class LeagueTableContainer extends React.Component<Props> {
 
 export default connect(
   (state: RootState) => ({
-    leagueTable: state.league.leagueTable
+    leagueTable: state.league.leagueTable,
+    allTeamsInLeague: state.league.allTeamsInLeague
   }),
   () => ({})
 )(LeagueTableContainer);

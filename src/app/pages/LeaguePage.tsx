@@ -21,14 +21,14 @@ class LeaguePage extends React.Component<any & RouteProps> {
   }
 
   componentWillUnmount() {
-    LeagueActions.initializeLeague();
+    LeagueActions.resetLeague();
   }
 
   initLeaguePage = (leagueId: string): void => {
     const country: string = leagueCollection[this.currentLeagueId].country;
 
-    LeagueActions.getLeagueSeasons({leagueId} as GetLeagueSeasonsPayload);
     LeagueActions.getAllTeamsInLeague({country} as GetAllTeamsInLeaguePayload);
+    LeagueActions.getLeagueSeasons({leagueId} as GetLeagueSeasonsPayload);
   };
 
   render() {
