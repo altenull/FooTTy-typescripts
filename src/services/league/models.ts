@@ -6,3 +6,7 @@ export interface GetLeagueTablePayload {
   leagueId: string;
   selectedSeason: string;
 }
+
+export interface GetAllTeamsInLeaguePayload {
+  country: string;
+}

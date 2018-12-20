@@ -1,13 +1,13 @@
 import * as React from 'react';
 import {RouteProps} from 'react-router-dom';
 import {LeagueActions} from '../../store/actionCreators';
-import {GetLeagueSeasonsPayload} from '../../services/league/models';
+import {GetAllTeamsInLeaguePayload, GetLeagueSeasonsPayload} from '../../services/league/models';
 import {leagueCollection} from '../../lib/variables';
 
 import PageTemplate from '../base/components/PageTemplate/PageTemplate';
 import ParallelogramHeader from '../base/components/ParallelogramHeader/ParallelogramHeader';
-import SeasonSelectorContainer from '../league/containers/SeasonSelector.container';
 import TwoColumnTemplate from '../base/components/TwoColumnTemplate/TwoColumnTemplate';
+import SeasonSelectorContainer from '../league/containers/SeasonSelector.container';
 import LeagueTableContainer from '../league/containers/LeagueTable.container';
 
 class LeaguePage extends React.Component<any & RouteProps> {
@@ -25,7 +25,10 @@ class LeaguePage extends React.Component<any & RouteProps> {
   }
 
   initLeaguePage = (leagueId: string): void => {
+    const country: string = leagueCollection[this.currentLeagueId].country;
+
     LeagueActions.getLeagueSeasons({leagueId} as GetLeagueSeasonsPayload);
+    LeagueActions.getAllTeamsInLeague({country} as GetAllTeamsInLeaguePayload);
   };
 
   render() {

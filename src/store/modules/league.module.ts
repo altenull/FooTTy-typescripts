@@ -7,6 +7,7 @@ import {createAsyncActionTypes} from '../../lib/functions/asyncAction';
 const INITIALIZE_LEAGUE = '@@league/INITIALIZE_LEAGUE';
 export const GET_LEAGUE_SEASONS = createAsyncActionTypes('@@league/GET_LEAGUE_SEASONS');
 export const GET_LEAGUE_TABLE = createAsyncActionTypes('@@league/GET_LEAGUE_TABLE');
+export const GET_ALL_TEAMS_IN_LEAGUE = createAsyncActionTypes('@@league/GET_ALL_TEAMS_IN_LEAGUE');
 const SET_SELECTED_SEASON = '@@league/SET_SELECTED_SEASON';
 
 export const actionCreators: LeagueActionCreators = {
@@ -19,19 +20,27 @@ export const actionCreators: LeagueActionCreators = {
   getLeagueTableRequest: createAction(GET_LEAGUE_TABLE.REQUEST),
   getLeagueTableComplete: createAction(GET_LEAGUE_TABLE.SUCCESS),
   getLeagueTableFail: createAction(GET_LEAGUE_TABLE.FAIL),
+  getAllTeamsInLeague: createAction(GET_ALL_TEAMS_IN_LEAGUE.INDEX),
+  getAllTeamsInLeagueRequest: createAction(GET_ALL_TEAMS_IN_LEAGUE.REQUEST),
+  getAllTeamsInLeagueComplete: createAction(GET_ALL_TEAMS_IN_LEAGUE.SUCCESS),
+  getAllTeamsInLeagueFail: createAction(GET_ALL_TEAMS_IN_LEAGUE.FAIL),
   setSelectedSeason: createAction(SET_SELECTED_SEASON)
 };
 
 const initialState: LeagueState = {
   selectedSeason: '',
   seasons: [],
+  allTeamsInLeague: null,
   isGetSeasonsLoading: false,
   isGetSeasonsLoaded: false,
   getSeasonsError: null,
   leagueTable: null,
   isGetLeagueTableLoading: false,
   isGetLeagueTableLoaded: false,
-  getLeagueTableError: null
+  getLeagueTableError: null,
+  isGetAllTeamsInLeagueLoading: false,
+  isGetAllTeamsInLeagueLoaded: false,
+  getAllTeamsInLeagueError: null
 };
 
 export const reducer: Reducer<LeagueState> = handleActions(
@@ -76,6 +85,26 @@ export const reducer: Reducer<LeagueState> = handleActions(
     [GET_LEAGUE_TABLE.FAIL]: (state: LeagueState) => {
       return produce(state, (draft) => {
         draft.isGetLeagueTableLoading = false;
+      });
+    },
+    [GET_ALL_TEAMS_IN_LEAGUE.REQUEST]: (state: LeagueState) => {
+      return produce(state, (draft) => {
+        draft.isGetAllTeamsInLeagueLoading = true;
+        draft.isGetAllTeamsInLeagueLoaded = false;
+      });
+    },
+    [GET_ALL_TEAMS_IN_LEAGUE.SUCCESS]: (state: LeagueState, action) => {
+      return produce(state, (draft) => {
+        if (action.payload != null) {
+          draft.allTeamsInLeague = action.payload as any;
+        }
+        draft.isGetAllTeamsInLeagueLoading = false;
+        draft.isGetAllTeamsInLeagueLoaded = true;
+      });
+    },
+    [GET_ALL_TEAMS_IN_LEAGUE.FAIL]: (state: LeagueState) => {
+      return produce(state, (draft) => {
+        draft.isGetAllTeamsInLeagueLoading = false;
       });
     },
     [SET_SELECTED_SEASON]: (state: LeagueState, action) => {

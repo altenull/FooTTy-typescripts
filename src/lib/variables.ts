@@ -11,6 +11,7 @@ export const leagueCollection = {
     name: 'premierleague',
     displayName: 'Premier League',
     fullName: 'English Premier League',
+    country: 'England',
     badgeGrey: PLBadgeGrey,
     badge: PLBadge
   },
@@ -19,6 +20,7 @@ export const leagueCollection = {
     name: 'laliga',
     displayName: 'La Liga',
     fullName: 'Spanish La Liga',
+    country: 'Spain',
     badgeGrey: LLBadgeGrey,
     badge: LLBadge
   },
@@ -27,6 +29,7 @@ export const leagueCollection = {
     name: 'bundesliga',
     displayName: 'Bundesliga',
     fullName: 'German Bundesliga',
+    country: 'Germany',
     badgeGrey: BLBadgeGrey,
     badge: BLBadge
   }

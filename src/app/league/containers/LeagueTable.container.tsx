@@ -10,21 +10,30 @@ interface Props {
 }
 
 class LeagueTableContainer extends React.Component<Props> {
+  handleSelectTeam = (teamId: string): void => {
+    alert(`selected teamId is ${teamId}`);
+  };
+
   render() {
     const {leagueTable} = this.props;
+    const {handleSelectTeam} = this;
 
     if (!leagueTable) {
       return null;
     }
 
-    const teamIds: string[] = Object.keys(leagueTable);
+    const orderedTeamIds: string[] = Object.keys(leagueTable).sort((prevTeamId: string, nextTeamId: string) => {
+      return leagueTable[prevTeamId].rank < leagueTable[nextTeamId].rank ? -1 :
+        leagueTable[prevTeamId].rank > leagueTable[nextTeamId].rank ? 1 : 0;
+    });
 
-    const tableRows: React.ReactNode = teamIds.map((teamId: string, index: number) => {
+    const tableRows: React.ReactNode = orderedTeamIds.map((teamId: string, index: number) => {
       return (
         <LeagueTableRow key={teamId}
                         teamId={teamId}
                         rank={index}
-                        data={leagueTable[teamId]}/>
+                        data={leagueTable[teamId]}
+                        onSelectTeam={handleSelectTeam}/>
       );
     });
 
