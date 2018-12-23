@@ -1,10 +1,11 @@
 import {call, takeLatest, all, put} from 'redux-saga/effects';
-import {createAsyncActionCreator} from '../../../lib/functions/asyncAction';
+import {createAsyncActionCreator, createSagaActionCreator} from '../../../lib/functions/sagaAction';
 import {
   GET_ALL_TEAMS_IN_LEAGUE,
   GET_LEAGUE_SEASONS,
   GET_LEAGUE_TABLE
 } from '../../modules/foottyAPI/foottyAPI-league.module';
+import {SET_SELECTED_SEASON} from '../../modules/league/league.module';
 import {
   GetAllTeamsInLeagueAction,
   GetAllTeamsInLeagueResponse,
@@ -19,7 +20,9 @@ import {
   TeamInLeague
 } from '../../models/foottyAPI/foottyAPI-league.model';
 import foottyAPIService from '../../../services/foottyAPI/foottyAPI.service';
+import {SetSelectedSeasonPayload} from '../../models/league/league.model';
 
+export const setSelectedSeasonAcionCreator = createSagaActionCreator(SET_SELECTED_SEASON);
 export const getLeagueSeasonsAsyncActionCreator = createAsyncActionCreator(GET_LEAGUE_SEASONS);
 export const getLeagueTableAsyncActionCreator = createAsyncActionCreator(GET_LEAGUE_TABLE);
 export const getAllTeamsAsyncActionCreator = createAsyncActionCreator(GET_ALL_TEAMS_IN_LEAGUE);
@@ -38,6 +41,15 @@ export function* getLeagueSeasons(action: GetLeagueSeasonsAction) {
 
     const sortedSeasons: string[] = seasons.reverse();
     yield put(getLeagueSeasonsAsyncActionCreator.success(sortedSeasons));
+
+    // TODO: Research how to use some actions in other saga
+    if (sortedSeasons.length > 0) {
+      const setSelectedSeasonPayload: SetSelectedSeasonPayload = {
+        selectedSeason: sortedSeasons[0]
+      };
+
+      yield put(setSelectedSeasonAcionCreator(setSelectedSeasonPayload));
+    }
   } catch (error) {
     yield put(getLeagueSeasonsAsyncActionCreator.fail());
   }

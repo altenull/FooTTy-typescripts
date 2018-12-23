@@ -1,11 +1,11 @@
 import * as React from 'react';
 import {connect} from 'react-redux';
 import {RootState} from '../../../store/modules';
-import {FoottyAPIActions} from '../../../store/actionCreators';
+import {FoottyAPIActions, LeagueActions} from '../../../store/actionCreators';
 import {GetLeagueTablePayload} from '../../../services/foottyAPI/models';
-import {SetSelectedSeasonPayload} from '../../../store/models/foottyAPI/foottyAPI-league.model';
 
 import SeasonSelector from '../components/SeasonSelector/SeasonSelector';
+import {SetSelectedSeasonPayload} from '../../../store/models/league/league.model';
 
 interface Props {
   leagueId: string;
@@ -51,7 +51,7 @@ class SeasonSelectorContainer extends React.Component<Props, States> {
     const setSelectedSeasonPayload: SetSelectedSeasonPayload = {
       selectedSeason
     };
-    FoottyAPIActions.setSelectedSeason(setSelectedSeasonPayload);
+    LeagueActions.setSelectedSeason(setSelectedSeasonPayload);
 
     // TODO: Request League Table & setState(ixExpanded: false)
     this.setState({
@@ -78,7 +78,7 @@ class SeasonSelectorContainer extends React.Component<Props, States> {
 
 export default connect(
   (state: RootState) => ({
-    selectedSeason: state.foottyAPI.foottyAPILeague.selectedSeason,
+    selectedSeason: state.league.selectedSeason,
     seasons: state.foottyAPI.foottyAPILeague.seasons
   }),
   () => ({})

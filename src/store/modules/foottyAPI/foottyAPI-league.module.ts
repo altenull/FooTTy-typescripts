@@ -1,18 +1,16 @@
 import {createAction, handleActions} from 'redux-actions';
 import {Reducer} from 'redux';
 import produce from 'immer';
-import {createAsyncActionTypes} from '../../../lib/functions/asyncAction';
+import {createAsyncActionTypes} from '../../../lib/functions/sagaAction';
 import {FoottyAPILeagueActionCreators, FoottyAPILeagueState} from '../../models/foottyAPI/foottyAPI-league.model';
 
 const RESET_FOOTTY_API_LEAGUE = '@@foottyAPI-league/RESET_FOOTTY_API_LEAGUE';
-const SET_SELECTED_SEASON = '@@foottyAPI-league/SET_SELECTED_SEASON';
 export const GET_ALL_TEAMS_IN_LEAGUE = createAsyncActionTypes('@@foottyAPI-league/GET_ALL_TEAMS_IN_LEAGUE');
 export const GET_LEAGUE_SEASONS = createAsyncActionTypes('@@foottyAPI-league/GET_LEAGUE_SEASONS');
 export const GET_LEAGUE_TABLE = createAsyncActionTypes('@@foottyAPI-league/GET_LEAGUE_TABLE');
 
 export const actionCreators: FoottyAPILeagueActionCreators = {
   resetFoottyAPILeague: createAction(RESET_FOOTTY_API_LEAGUE),
-  setSelectedSeason: createAction(SET_SELECTED_SEASON),
   getAllTeamsInLeague: createAction(GET_ALL_TEAMS_IN_LEAGUE.INDEX),
   getAllTeamsInLeagueRequest: createAction(GET_ALL_TEAMS_IN_LEAGUE.REQUEST),
   getAllTeamsInLeagueComplete: createAction(GET_ALL_TEAMS_IN_LEAGUE.SUCCESS),
@@ -28,7 +26,6 @@ export const actionCreators: FoottyAPILeagueActionCreators = {
 };
 
 export const initialState: FoottyAPILeagueState = {
-  selectedSeason: '',
   allTeamsInLeague: null,
   seasons: [],
   leagueTable: null,
@@ -46,13 +43,6 @@ export const initialState: FoottyAPILeagueState = {
 export const reducer: Reducer<FoottyAPILeagueState> = handleActions(
   {
     [RESET_FOOTTY_API_LEAGUE]: () => initialState,
-    [SET_SELECTED_SEASON]: (state: FoottyAPILeagueState, action) => {
-      return produce(state, (draft) => {
-        if (action.payload != null) {
-          draft.selectedSeason = action.payload.selectedSeason as any;
-        }
-      })
-    },
     [GET_ALL_TEAMS_IN_LEAGUE.REQUEST]: (state: FoottyAPILeagueState) => {
       return produce(state, (draft) => {
         draft.isGetAllTeamsInLeagueLoading = true;
@@ -83,7 +73,6 @@ export const reducer: Reducer<FoottyAPILeagueState> = handleActions(
       return produce(state, (draft) => {
         if (action.payload != null) {
           draft.seasons = action.payload as any;
-          draft.selectedSeason = action.payload[0]; // [0] is latest season
         }
         draft.isGetSeasonsLoading = false;
         draft.isGetSeasonsLoaded = true;

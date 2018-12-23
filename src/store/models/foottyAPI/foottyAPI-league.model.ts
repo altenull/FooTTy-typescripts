@@ -4,7 +4,6 @@ import {GetAllTeamsInLeaguePayload, GetLeagueSeasonsPayload, GetLeagueTablePaylo
 // Redux
 export interface FoottyAPILeagueActionCreators {
   resetFoottyAPILeague(): any;
-  setSelectedSeason(payload: SetSelectedSeasonPayload): any;
   getAllTeamsInLeague(payload: GetAllTeamsInLeaguePayload): any;
   getAllTeamsInLeagueRequest(): any;
   getAllTeamsInLeagueComplete(): any;
@@ -20,7 +19,6 @@ export interface FoottyAPILeagueActionCreators {
 }
 
 export interface FoottyAPILeagueState {
-  selectedSeason: string;
   allTeamsInLeague: {[teamId: string]: ObjectizedTeamInLeague} | null;
   seasons: string[];
   leagueTable: {[teamId: string]: ObjectizedLeagueTable} | null;
@@ -33,10 +31,6 @@ export interface FoottyAPILeagueState {
   isGetLeagueTableLoading: boolean;
   isGetLeagueTableLoaded: boolean;
   getLeagueTableError: string | null;
-}
-
-export interface SetSelectedSeasonPayload {
-  selectedSeason: string;
 }
 
 // Redux-Saga

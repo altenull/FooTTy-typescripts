@@ -11,7 +11,7 @@ export const createAsyncActionTypes = (actionName: string): AsyncActionType => {
   };
 };
 
-const createSagaActionCreator = (actionType: string) => {
+export const createSagaActionCreator = (actionType: string) => {
   return (payload: any): SagaActionType => ({
     type: actionType,
     payload
