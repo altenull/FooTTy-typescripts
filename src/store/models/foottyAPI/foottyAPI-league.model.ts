@@ -1,9 +1,14 @@
-import {ActionType} from './shared.model';
-import {GetAllTeamsInLeaguePayload, GetLeagueSeasonsPayload, GetLeagueTablePayload} from '../../services/league/models';
+import {ActionType} from '../shared/shared.model';
+import {GetAllTeamsInLeaguePayload, GetLeagueSeasonsPayload, GetLeagueTablePayload} from '../../../services/foottyAPI/models';
 
 // Redux
-export interface LeagueActionCreators {
-  resetLeague(): any;
+export interface FoottyAPILeagueActionCreators {
+  resetFoottyAPILeague(): any;
+  setSelectedSeason(payload: SetSelectedSeasonPayload): any;
+  getAllTeamsInLeague(payload: GetAllTeamsInLeaguePayload): any;
+  getAllTeamsInLeagueRequest(): any;
+  getAllTeamsInLeagueComplete(): any;
+  getAllTeamsInLeagueFail(): any;
   getLeagueSeasons(payload: GetLeagueSeasonsPayload): any;
   getLeagueSeasonsRequest(): any;
   getLeagueSeasonsComplete(): any;
@@ -12,27 +17,22 @@ export interface LeagueActionCreators {
   getLeagueTableRequest(): any;
   getLeagueTableComplete(): any;
   getLeagueTableFail(): any;
-  getAllTeamsInLeague(payload: any): any;
-  getAllTeamsInLeagueRequest(): any;
-  getAllTeamsInLeagueComplete(): any;
-  getAllTeamsInLeagueFail(): any;
-  setSelectedSeason(payload: SetSelectedSeasonPayload): any;
 }
 
-export interface LeagueState {
+export interface FoottyAPILeagueState {
   selectedSeason: string;
-  seasons: string[];
   allTeamsInLeague: {[teamId: string]: ObjectizedTeamInLeague} | null;
+  seasons: string[];
   leagueTable: {[teamId: string]: ObjectizedLeagueTable} | null;
+  isGetAllTeamsInLeagueLoading: boolean;
+  isGetAllTeamsInLeagueLoaded: boolean;
+  getAllTeamsInLeagueError: string | null;
   isGetSeasonsLoading: boolean;
   isGetSeasonsLoaded: boolean;
   getSeasonsError: string | null;
   isGetLeagueTableLoading: boolean;
   isGetLeagueTableLoaded: boolean;
   getLeagueTableError: string | null;
-  isGetAllTeamsInLeagueLoading: boolean;
-  isGetAllTeamsInLeagueLoaded: boolean;
-  getAllTeamsInLeagueError: string | null;
 }
 
 export interface SetSelectedSeasonPayload {
@@ -139,7 +139,6 @@ export interface TeamInLeague {
   strWebsite: string;
   strYoutube: string;
 }
-
 export interface ObjectizedTeamInLeague {
   formedYear: string | null;
   stadiumCapacity: string | null;
@@ -150,7 +149,6 @@ export interface ObjectizedTeamInLeague {
   websiteUrl: string | null;
   badgeUrl: string | null;
 }
-
 export interface GetAllTeamsInLeagueResponse {
   teams: TeamInLeague[]
 }

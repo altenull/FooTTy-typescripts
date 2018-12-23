@@ -1,7 +1,7 @@
 import * as React from 'react';
 import styles from './LeagueTableRow.scss';
 import * as classNames from 'classnames/bind';
-import {ObjectizedLeagueTable} from '../../../../store/models/league.model';
+import {ObjectizedLeagueTable} from '../../../../store/models/foottyAPI/foottyAPI-league.model';
 
 const cx = classNames.bind(styles);
 

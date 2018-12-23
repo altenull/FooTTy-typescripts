@@ -1,9 +1,13 @@
 import {bindActionCreators} from 'redux';
 import store from './index';
-import {actionCreators as leagueActions} from './modules/league.module';
-import {LeagueActionCreators} from './models/league.model';
+
+// Action Creators Model
+import {FoottyAPIActionCreators} from './models/foottyAPI/foottyAPI.model';
+
+// Action Creators
+import {actionCreators as foottyAPIActions} from './modules/foottyAPI/foottyAPI.module';
 
 const {dispatch} = store;
 
 // TODO: Search bindActionCreators type
-export const LeagueActions: LeagueActionCreators = bindActionCreators<any, any>(leagueActions, dispatch);
+export const FoottyAPIActions: FoottyAPIActionCreators = bindActionCreators<any, any>(foottyAPIActions, dispatch);

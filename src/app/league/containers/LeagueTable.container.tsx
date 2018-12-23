@@ -1,7 +1,8 @@
 import * as React from 'react';
 import {connect} from 'react-redux';
 import {RootState} from '../../../store/modules';
-import {ObjectizedLeagueTable, ObjectizedTeamInLeague} from '../../../store/models/league.model';
+import {ObjectizedLeagueTable, ObjectizedTeamInLeague} from '../../../store/models/foottyAPI/foottyAPI-league.model';
+
 import LeagueTable from '../components/LeagueTable/LeagueTable';
 import LeagueTableRow from '../components/LeagueTableRow/LeagueTableRow';
 
@@ -49,8 +50,8 @@ class LeagueTableContainer extends React.Component<Props> {
 
 export default connect(
   (state: RootState) => ({
-    leagueTable: state.league.leagueTable,
-    allTeamsInLeague: state.league.allTeamsInLeague
+    leagueTable: state.foottyAPI.foottyAPILeague.leagueTable,
+    allTeamsInLeague: state.foottyAPI.foottyAPILeague.allTeamsInLeague
   }),
   () => ({})
 )(LeagueTableContainer);

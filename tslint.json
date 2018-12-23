@@ -10,7 +10,8 @@
     "strictNullChecks": true,
     "max-classes-per-file": [true, 2],
     "jsx-no-lambda": false,
-    "no-debugger": false
+    "no-debugger": false,
+    "no-empty-interface": false
   },
   "linterOptions": {
     "exclude": [

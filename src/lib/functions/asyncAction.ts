@@ -1,4 +1,4 @@
-import {AsyncActionType, SagaActionType} from '../../store/models/shared.model';
+import {AsyncActionType, SagaActionType} from '../../store/models/shared/shared.model';
 
 export const createAsyncActionTypes = (actionName: string): AsyncActionType => {
   const prefix: string = actionName;
