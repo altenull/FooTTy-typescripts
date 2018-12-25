@@ -17,8 +17,23 @@ class App extends React.Component {
     return (
       <HashRouter>
         <Switch>
-          <Route path={'/'} component={HomePage} exact={true} />
-          <Route path={'/:league'} component={LeaguePage} />
+          <Route
+            path={'/'}
+            render={({location}) => {
+              const searchParams = new URLSearchParams(location.search);
+              const lang: string | null = searchParams.get('lang');
+
+              // TODO: Provide language to Context Provider.
+              console.log('lang', lang);
+
+              return (
+                <>
+                  <Route path={'/'} component={HomePage} exact={true}/>
+                  <Route path={'/:league'} component={LeaguePage}/>
+                </>
+              );
+            }}
+          />
         </Switch>
       </HashRouter>
     );
