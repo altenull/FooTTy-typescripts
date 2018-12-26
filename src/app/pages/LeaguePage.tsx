@@ -1,8 +1,8 @@
 import * as React from 'react';
-import {RouteProps} from 'react-router-dom';
+import {RouteComponentProps} from 'react-router-dom';
 import {FoottyAPIActions} from '../../store/actionCreators';
 import {GetAllTeamsInLeaguePayload, GetLeagueSeasonsPayload} from '../../services/foottyAPI/models';
-import {leagueCollection} from '../../lib/variables';
+import {withLocale} from '../../contexts/localeContext';
 
 import SeasonSelectorContainer from '../league/containers/SeasonSelector.container';
 import LeagueTableContainer from '../league/containers/LeagueTable.container';
@@ -11,7 +11,11 @@ import PageTemplate from '../base/components/PageTemplate/PageTemplate';
 import ParallelogramHeader from '../base/components/ParallelogramHeader/ParallelogramHeader';
 import TwoColumnTemplate from '../base/components/TwoColumnTemplate/TwoColumnTemplate';
 
-class LeaguePage extends React.Component<any & RouteProps> {
+interface Props extends RouteComponentProps<any> {
+  localizedContents: any;
+}
+
+class LeaguePage extends React.Component<Props> {
   currentLeagueId: string = '';
 
   constructor(props: any) {
@@ -26,13 +30,18 @@ class LeaguePage extends React.Component<any & RouteProps> {
   }
 
   initLeaguePage = (leagueId: string): void => {
-    const country: string = leagueCollection[this.currentLeagueId].country;
+    const {localizedContents} = this.props;
+    const leagueCollection = localizedContents.league.leagueCollection;
+    const country: string = leagueCollection[leagueId].country;
 
     FoottyAPIActions.getAllTeamsInLeague({country} as GetAllTeamsInLeaguePayload);
     FoottyAPIActions.getLeagueSeasons({leagueId} as GetLeagueSeasonsPayload);
   };
 
   render() {
+    const {localizedContents} = this.props;
+    const leagueCollection = localizedContents.league.leagueCollection;
+
     const pageHeaderBadge: string = leagueCollection[this.currentLeagueId].badge;
     const pageHeaderCopy: string = leagueCollection[this.currentLeagueId].displayName;
     const pageHeader: React.ReactNode = <ParallelogramHeader badge={pageHeaderBadge}
@@ -50,4 +59,4 @@ class LeaguePage extends React.Component<any & RouteProps> {
   }
 }
 
-export default LeaguePage;
+export default withLocale(LeaguePage);

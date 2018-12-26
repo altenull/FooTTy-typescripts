@@ -1,13 +1,20 @@
 import * as React from 'react';
 import styles from './LeagueLinkList.scss';
 import * as classNames from 'classnames/bind';
-import {leagueCollection} from '../../../../lib/variables';
 import LeagueLink from '../LeagueLink/LeagueLink';
+import {withLocale} from '../../../../contexts/localeContext';
 
 const cx = classNames.bind(styles);
 
-class LeagueLinkList extends React.Component {
+interface Props {
+  localizedContents: any;
+}
+
+class LeagueLinkList extends React.Component<Props> {
   render() {
+    const {localizedContents} = this.props;
+    const leagueCollection = localizedContents.league.leagueCollection;
+
     const leagueLinkList = Object.keys(leagueCollection).map((leagueId: string) => {
       const leagueInfo = leagueCollection[leagueId];
 
@@ -29,4 +36,4 @@ class LeagueLinkList extends React.Component {
   }
 }
 
-export default LeagueLinkList;
+export default withLocale(LeagueLinkList);

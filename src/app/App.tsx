@@ -14,10 +14,13 @@ const LeaguePage = Loadable({
 });
 
 class App extends React.Component {
+  lang: string | null = null;
+
   getLanguage = (locationSearch: string): string | null => {
     const searchParams = new URLSearchParams(locationSearch);
+    this.lang = this.lang ? this.lang : searchParams.get('lang');
 
-    return searchParams.get('lang');
+    return this.lang;
   };
 
   render() {
