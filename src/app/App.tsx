@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {HashRouter, Switch, Route} from 'react-router-dom';
 import * as Loadable from 'react-loadable';
+import {LocaleProvider} from '../contexts/localeContext';
 
 const HomePage = Loadable({
   loader: () => import('./pages/HomePage'),
@@ -13,27 +14,25 @@ const LeaguePage = Loadable({
 });
 
 class App extends React.Component {
+  getLanguage = (locationSearch: string): string | null => {
+    const searchParams = new URLSearchParams(locationSearch);
+
+    return searchParams.get('lang');
+  };
+
   render() {
     return (
       <HashRouter>
         <Switch>
-          <Route
-            path={'/'}
-            render={({location}) => {
-              const searchParams = new URLSearchParams(location.search);
-              const lang: string | null = searchParams.get('lang');
-
-              // TODO: Provide language to Context Provider.
-              console.log('lang', lang);
-
-              return (
-                <>
-                  <Route path={'/'} component={HomePage} exact={true}/>
-                  <Route path={'/:league'} component={LeaguePage}/>
-                </>
-              );
-            }}
-          />
+          <Route path={'/'}
+                 render={({location}) => {
+                   return (
+                     <LocaleProvider lang={this.getLanguage(location.search)}>
+                       <Route path={'/'} component={HomePage} exact={true}/>
+                       <Route path={'/:league'} component={LeaguePage}/>
+                     </LocaleProvider>
+                   );
+                 }}/>
         </Switch>
       </HashRouter>
     );

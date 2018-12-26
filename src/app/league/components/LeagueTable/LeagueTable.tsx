@@ -1,32 +1,35 @@
 import * as React from 'react';
 import styles from './LeagueTable.scss';
 import * as classNames from 'classnames/bind';
+import {withLocale} from '../../../../contexts/localeContext';
 
 const cx = classNames.bind(styles);
 
 interface Props {
+  localizedContents: any;
   tableRows: React.ReactNode;
 }
 
 class LeagueTable extends React.Component<Props> {
   render() {
-    const {tableRows} = this.props;
+    const {localizedContents, tableRows} = this.props;
+    const leagueTableContents = localizedContents.league.leagueTable;
 
     return (
       <table className={cx('LeagueTable')}>
         <thead>
           <tr>
-            <th>순위</th>
-            <th>이미지, 구단명</th>
-            <th>경기수</th>
-            <th>승</th>
-            <th>무</th>
-            <th>패</th>
-            <th>득점</th>
-            <th>실점</th>
-            <th>득실차</th>
-            <th>최근 5경</th>
-            <th>승점</th>
+            <th>{leagueTableContents.position}</th>
+            <th>{leagueTableContents.club}</th>
+            <th>{leagueTableContents.played}</th>
+            <th>{leagueTableContents.won}</th>
+            <th>{leagueTableContents.drawn}</th>
+            <th>{leagueTableContents.lost}</th>
+            <th>{leagueTableContents.goalsFor}</th>
+            <th>{leagueTableContents.goalsAgainst}</th>
+            <th>{leagueTableContents.goalDifference}</th>
+            <th>{leagueTableContents.form}</th>
+            <th>{leagueTableContents.points}</th>
           </tr>
         </thead>
         <tbody>
@@ -37,4 +40,4 @@ class LeagueTable extends React.Component<Props> {
   }
 }
 
-export default LeagueTable;
+export default withLocale(LeagueTable);
