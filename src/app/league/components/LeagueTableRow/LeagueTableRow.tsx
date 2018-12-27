@@ -19,6 +19,10 @@ class LeagueTableRow extends React.Component<Props> {
   render() {
     const {teamId, rank, badgeUrl, data, nextEvent, onSelectTeam} = this.props;
 
+    const handledGoalsDifference: string = data.goalsdifference > 0 ?
+        `+${data.goalsdifference}` :
+        `${data.goalsdifference}`;
+
     return (
       <tr className={cx('LeagueTableRow')} onClick={() => onSelectTeam(teamId)}>
         <th className={cx('LeagueTableRow__th')}>{rank}</th>
@@ -31,7 +35,7 @@ class LeagueTableRow extends React.Component<Props> {
         <td className={cx('LeagueTableRow__td')}>{data.loss}</td>
         <td className={cx('LeagueTableRow__td')}>{data.goalsfor}</td>
         <td className={cx('LeagueTableRow__td')}>{data.goalsagainst}</td>
-        <td className={cx('LeagueTableRow__td')}>{data.goalsdifference}</td>
+        <td className={cx('LeagueTableRow__td')}>{handledGoalsDifference}</td>
         <td className={cx('LeagueTableRow__td')}>
           <span>{(nextEvent != null && nextEvent.badgeUrl) ? <img src={nextEvent.badgeUrl} width={'36px'}/> : 'No image'}</span>
         </td>
