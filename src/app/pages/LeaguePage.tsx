@@ -1,7 +1,11 @@
 import * as React from 'react';
 import {RouteComponentProps} from 'react-router-dom';
 import {FoottyAPIActions} from '../../store/actionCreators';
-import {GetAllTeamsInLeaguePayload, GetLeagueSeasonsPayload} from '../../services/foottyAPI/models';
+import {
+  GetAllTeamsInLeaguePayload,
+  GetLeagueSeasonsPayload,
+  GetNextEventsPayload
+} from '../../services/foottyAPI/models';
 import {withLocale} from '../../contexts/localeContext';
 
 import SeasonSelectorContainer from '../league/containers/SeasonSelector.container';
@@ -36,6 +40,7 @@ class LeaguePage extends React.Component<Props> {
 
     FoottyAPIActions.getAllTeamsInLeague({country} as GetAllTeamsInLeaguePayload);
     FoottyAPIActions.getLeagueSeasons({leagueId} as GetLeagueSeasonsPayload);
+    FoottyAPIActions.getNextEvents({leagueId} as GetNextEventsPayload);
   };
 
   render() {

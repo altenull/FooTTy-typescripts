@@ -46,7 +46,7 @@ export const leagueContents = {
       goalsFor: 'GF',
       goalsAgainst: 'GA',
       goalDifference: 'GD',
-      form: 'Form',
+      next: 'Next',
       points: 'Points'
     }
   },
@@ -90,7 +90,7 @@ export const leagueContents = {
       goalsFor: '득',
       goalsAgainst: '실',
       goalDifference: '득실',
-      form: '최근 경기',
+      next: '다음 경기',
       points: '승점'
     }
   }

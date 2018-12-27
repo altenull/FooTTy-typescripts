@@ -3,7 +3,7 @@ import {foottyEndPoint} from '../service.env';
 import {
   GetAllTeamsInLeaguePayload,
   GetLeagueSeasonsPayload,
-  GetLeagueTablePayload
+  GetLeagueTablePayload, GetNextEventsPayload
 } from './models';
 
 class FoottyAPIService {
@@ -25,6 +25,14 @@ class FoottyAPIService {
 
   getLeagueTable = (payload: GetLeagueTablePayload) => {
     const url: string = `${foottyEndPoint}/lookuptable.php?l=${payload.leagueId}&s=${payload.selectedSeason}`;
+
+    return axios.get(url)
+        .then((response) => response.data)
+        .catch((error) => console.error(error));
+  };
+
+  getNextEvents = (payload: GetNextEventsPayload) => {
+    const url: string = `${foottyEndPoint}/eventsnextleague.php?id=${payload.leagueId}`;
 
     return axios.get(url)
         .then((response) => response.data)

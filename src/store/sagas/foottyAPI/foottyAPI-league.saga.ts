@@ -3,18 +3,19 @@ import {createAsyncActionCreator, createSagaActionCreator} from '../../../lib/fu
 import {
   GET_ALL_TEAMS_IN_LEAGUE,
   GET_LEAGUE_SEASONS,
-  GET_LEAGUE_TABLE
+  GET_LEAGUE_TABLE, GET_NEXT_EVENTS
 } from '../../modules/foottyAPI/foottyAPI-league.module';
 import {SET_SELECTED_SEASON} from '../../modules/league/league.module';
 import {
+  EventInLeague,
   GetAllTeamsInLeagueAction,
   GetAllTeamsInLeagueResponse,
   GetLeagueSeasonsAction,
   GetLeagueSeasonsResponse,
   GetLeagueTableAction,
-  GetLeagueTableResponse,
+  GetLeagueTableResponse, GetNextEventsAction, GetNextEventsResponse,
   LeagueSeason,
-  LeagueTable,
+  LeagueTable, ObjectizedEventInLeague,
   ObjectizedLeagueTable,
   ObjectizedTeamInLeague,
   TeamInLeague
@@ -26,6 +27,7 @@ export const setSelectedSeasonAcionCreator = createSagaActionCreator(SET_SELECTE
 export const getLeagueSeasonsAsyncActionCreator = createAsyncActionCreator(GET_LEAGUE_SEASONS);
 export const getLeagueTableAsyncActionCreator = createAsyncActionCreator(GET_LEAGUE_TABLE);
 export const getAllTeamsAsyncActionCreator = createAsyncActionCreator(GET_ALL_TEAMS_IN_LEAGUE);
+export const getNextEventsAsyncActionCreator = createAsyncActionCreator(GET_NEXT_EVENTS);
 
 export function* getLeagueSeasons(action: GetLeagueSeasonsAction) {
   yield put(getLeagueSeasonsAsyncActionCreator.request());
@@ -106,10 +108,40 @@ export function* getAllTeamsInLeague(action: GetAllTeamsInLeagueAction) {
   }
 }
 
+export function* getNextEvents(action: GetNextEventsAction) {
+  yield put(getNextEventsAsyncActionCreator.request());
+
+  try {
+    const response: GetNextEventsResponse = yield call(() => foottyAPIService.getNextEvents(action.payload));
+
+    const nextEvents: { [eventId: string]: ObjectizedEventInLeague } = response.events.reduce((acc: { [eventId: string]: ObjectizedEventInLeague }, event: EventInLeague) => {
+      return {
+        ...acc,
+        [event.idEvent]: {
+          strEvent: event.strEvent,
+          strHomeTeam: event.strHomeTeam,
+          strAwayTeam: event.strAwayTeam,
+          intRound: event.intRound,
+          dateEvent: event.dateEvent,
+          strDate: event.strDate,
+          strTime: event.strTime,
+          idHomeTeam: event.idHomeTeam,
+          idAwayTeam: event.idAwayTeam
+        }
+      };
+    }, {});
+
+    yield put(getNextEventsAsyncActionCreator.success(nextEvents));
+  } catch (error) {
+    yield put(getNextEventsAsyncActionCreator.fail());
+  }
+}
+
 export default function* foottyAPILeagueSaga() {
   yield all([
     takeLatest(GET_LEAGUE_SEASONS.INDEX as any, getLeagueSeasons),
     takeLatest(GET_LEAGUE_TABLE.INDEX as any, getLeagueTable),
-    takeLatest(GET_ALL_TEAMS_IN_LEAGUE.INDEX as any, getAllTeamsInLeague)
+    takeLatest(GET_ALL_TEAMS_IN_LEAGUE.INDEX as any, getAllTeamsInLeague),
+    takeLatest(GET_NEXT_EVENTS.INDEX as any, getNextEvents)
   ])
 }

@@ -4,7 +4,7 @@
     "outDir": "build/dist",
     "module": "esnext",
     "target": "es5",
-    "lib": ["es6", "dom", "dom.iterable", "es2015.iterable"],
+    "lib": ["es6", "dom", "dom.iterable", "es2015.iterable", "es2017.object"],
     "sourceMap": true,
     "allowJs": true,
     "jsx": "react",

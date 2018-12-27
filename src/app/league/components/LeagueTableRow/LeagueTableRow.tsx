@@ -1,6 +1,7 @@
 import * as React from 'react';
 import styles from './LeagueTableRow.scss';
 import * as classNames from 'classnames/bind';
+import {NextEvent} from '../../models/league.model';
 import {ObjectizedLeagueTable} from '../../../../store/models/foottyAPI/foottyAPI-league.model';
 
 const cx = classNames.bind(styles);
@@ -10,13 +11,13 @@ interface Props {
   rank: number;
   badgeUrl: string | null;
   data: ObjectizedLeagueTable;
+  nextEvent: NextEvent | null;
   onSelectTeam(teamId: string): void;
 }
 
 class LeagueTableRow extends React.Component<Props> {
   render() {
-    const {teamId, rank, badgeUrl, data, onSelectTeam} = this.props;
-
+    const {teamId, rank, badgeUrl, data, nextEvent, onSelectTeam} = this.props;
 
     return (
       <tr className={cx('LeagueTableRow')} onClick={() => onSelectTeam(teamId)}>
@@ -31,7 +32,9 @@ class LeagueTableRow extends React.Component<Props> {
         <td className={cx('LeagueTableRow__td')}>{data.goalsfor}</td>
         <td className={cx('LeagueTableRow__td')}>{data.goalsagainst}</td>
         <td className={cx('LeagueTableRow__td')}>{data.goalsdifference}</td>
-        <td className={cx('LeagueTableRow__td')}>최근 5경기</td>
+        <td className={cx('LeagueTableRow__td')}>
+          <span>{(nextEvent != null && nextEvent.badgeUrl) ? <img src={nextEvent.badgeUrl} width={'36px'}/> : 'No image'}</span>
+        </td>
         <td className={cx('LeagueTableRow__td')}>{data.total}</td>
       </tr>
     );

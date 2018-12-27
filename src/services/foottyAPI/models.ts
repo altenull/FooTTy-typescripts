@@ -10,3 +10,7 @@ export interface GetLeagueTablePayload {
 export interface GetAllTeamsInLeaguePayload {
   country: string;
 }
+
+export interface GetNextEventsPayload {
+  leagueId: string;
+}

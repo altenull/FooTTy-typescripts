@@ -8,6 +8,7 @@ const RESET_FOOTTY_API_LEAGUE = '@@foottyAPI-league/RESET_FOOTTY_API_LEAGUE';
 export const GET_ALL_TEAMS_IN_LEAGUE = createAsyncActionTypes('@@foottyAPI-league/GET_ALL_TEAMS_IN_LEAGUE');
 export const GET_LEAGUE_SEASONS = createAsyncActionTypes('@@foottyAPI-league/GET_LEAGUE_SEASONS');
 export const GET_LEAGUE_TABLE = createAsyncActionTypes('@@foottyAPI-league/GET_LEAGUE_TABLE');
+export const GET_NEXT_EVENTS = createAsyncActionTypes('@@foottyAPI-league/GET_NEXT_EVENTS');
 
 export const actionCreators: FoottyAPILeagueActionCreators = {
   resetFoottyAPILeague: createAction(RESET_FOOTTY_API_LEAGUE),
@@ -22,13 +23,18 @@ export const actionCreators: FoottyAPILeagueActionCreators = {
   getLeagueTable: createAction(GET_LEAGUE_TABLE.INDEX),
   getLeagueTableRequest: createAction(GET_LEAGUE_TABLE.REQUEST),
   getLeagueTableComplete: createAction(GET_LEAGUE_TABLE.SUCCESS),
-  getLeagueTableFail: createAction(GET_LEAGUE_TABLE.FAIL)
+  getLeagueTableFail: createAction(GET_LEAGUE_TABLE.FAIL),
+  getNextEvents: createAction(GET_NEXT_EVENTS.INDEX),
+  getNextEventsRequest: createAction(GET_NEXT_EVENTS.REQUEST),
+  getNextEventsComplete: createAction(GET_NEXT_EVENTS.SUCCESS),
+  getNextEventsFail: createAction(GET_NEXT_EVENTS.FAIL)
 };
 
 export const initialState: FoottyAPILeagueState = {
   allTeamsInLeague: null,
   seasons: [],
   leagueTable: null,
+  nextEvents: null,
   isGetSeasonsLoading: false,
   isGetSeasonsLoaded: false,
   getSeasonsError: null,
@@ -37,7 +43,10 @@ export const initialState: FoottyAPILeagueState = {
   getLeagueTableError: null,
   isGetAllTeamsInLeagueLoading: false,
   isGetAllTeamsInLeagueLoaded: false,
-  getAllTeamsInLeagueError: null
+  getAllTeamsInLeagueError: null,
+  isGetNextEventsLoading: false,
+  isGetNextEventsLoaded: false,
+  getNextEventsError: null
 };
 
 export const reducer: Reducer<FoottyAPILeagueState> = handleActions(
@@ -101,6 +110,26 @@ export const reducer: Reducer<FoottyAPILeagueState> = handleActions(
     [GET_LEAGUE_TABLE.FAIL]: (state: FoottyAPILeagueState) => {
       return produce(state, (draft) => {
         draft.isGetLeagueTableLoading = false;
+      });
+    },
+    [GET_NEXT_EVENTS.REQUEST]: (state: FoottyAPILeagueState) => {
+      return produce(state, (draft) => {
+        draft.isGetNextEventsLoading = true;
+        draft.isGetNextEventsLoaded = false;
+      });
+    },
+    [GET_NEXT_EVENTS.SUCCESS]: (state: FoottyAPILeagueState, action) => {
+      return produce(state, (draft) => {
+        if (action.payload != null) {
+          draft.nextEvents = action.payload as any;
+        }
+        draft.isGetNextEventsLoading = false;
+        draft.isGetNextEventsLoaded = true;
+      });
+    },
+    [GET_NEXT_EVENTS.FAIL]: (state: FoottyAPILeagueState) => {
+      return produce(state, (draft) => {
+        draft.isGetNextEventsLoading = false;
       });
     }
   },

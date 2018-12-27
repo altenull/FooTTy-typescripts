@@ -28,7 +28,7 @@ class LeagueTable extends React.Component<Props> {
             <th>{leagueTableContents.goalsFor}</th>
             <th>{leagueTableContents.goalsAgainst}</th>
             <th>{leagueTableContents.goalDifference}</th>
-            <th>{leagueTableContents.form}</th>
+            <th>{leagueTableContents.next}</th>
             <th>{leagueTableContents.points}</th>
           </tr>
         </thead>
