@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {RouteComponentProps} from 'react-router-dom';
-import {FoottyAPIActions} from '../../store/actionCreators';
+import {FoottyAPIActions, LeagueActions} from '../../store/actionCreators';
 import {
   GetAllTeamsInLeaguePayload,
   GetLeagueSeasonsPayload,
@@ -31,6 +31,7 @@ class LeaguePage extends React.Component<Props> {
 
   componentWillUnmount() {
     FoottyAPIActions.resetFoottyAPILeague();
+    LeagueActions.resetLeague();
   }
 
   initLeaguePage = (leagueId: string): void => {

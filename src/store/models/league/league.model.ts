@@ -1,5 +1,6 @@
 // Redux
 export interface LeagueActionCreators {
+  resetLeague(): any;
   setSelectedSeason(payload: SetSelectedSeasonPayload): any;
 }
 
