@@ -26,8 +26,9 @@ class LeagueTableContainer extends React.Component<Props> {
     const {leagueTable, allTeamsInLeague, nextEvents} = this.props;
     const {handleSelectTeam} = this;
 
+    // TODO: Handle loading
     if (!leagueTable || !allTeamsInLeague || !nextEvents) {
-      return null;
+      return <div style={{color: 'white'}}>Loading...</div>;
     }
 
     const orderedTeamIds: string[] = Object.keys(leagueTable).sort((prevTeamId: string, nextTeamId: string) => {
@@ -69,7 +70,7 @@ class LeagueTableContainer extends React.Component<Props> {
       return (
         <LeagueTableRow key={teamId}
                         teamId={teamId}
-                        rank={index}
+                        rank={++index}
                         badgeUrl={badgeUrl}
                         data={leagueTable[teamId]}
                         nextEvent={nextEvent}

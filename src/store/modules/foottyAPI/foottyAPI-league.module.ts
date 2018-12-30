@@ -54,6 +54,7 @@ export const reducer: Reducer<FoottyAPILeagueState> = handleActions(
     [RESET_FOOTTY_API_LEAGUE]: () => initialState,
     [GET_ALL_TEAMS_IN_LEAGUE.REQUEST]: (state: FoottyAPILeagueState) => {
       return produce(state, (draft) => {
+        draft.allTeamsInLeague = null;
         draft.isGetAllTeamsInLeagueLoading = true;
         draft.isGetAllTeamsInLeagueLoaded = false;
       });
@@ -74,6 +75,7 @@ export const reducer: Reducer<FoottyAPILeagueState> = handleActions(
     },
     [GET_LEAGUE_SEASONS.REQUEST]: (state: FoottyAPILeagueState) => {
       return produce(state, (draft) => {
+        draft.seasons = [];
         draft.isGetSeasonsLoading = true;
         draft.isGetSeasonsLoaded = false;
       });
@@ -94,6 +96,7 @@ export const reducer: Reducer<FoottyAPILeagueState> = handleActions(
     },
     [GET_LEAGUE_TABLE.REQUEST]: (state: FoottyAPILeagueState) => {
       return produce(state, (draft) => {
+        draft.leagueTable = null;
         draft.isGetLeagueTableLoading = true;
         draft.isGetLeagueTableLoaded = false;
       });
@@ -114,6 +117,7 @@ export const reducer: Reducer<FoottyAPILeagueState> = handleActions(
     },
     [GET_NEXT_EVENTS.REQUEST]: (state: FoottyAPILeagueState) => {
       return produce(state, (draft) => {
+        draft.nextEvents = null;
         draft.isGetNextEventsLoading = true;
         draft.isGetNextEventsLoaded = false;
       });

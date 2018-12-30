@@ -16,7 +16,7 @@ class LeagueTable extends React.Component<Props> {
     const leagueTableContents = localizedContents.league.leagueTable;
 
     return (
-      <table className={cx('LeagueTable')}>
+      <table className={cx('LeagueTable')} cellPadding={'6'}>
         <thead>
           <tr>
             <th>{leagueTableContents.position}</th>

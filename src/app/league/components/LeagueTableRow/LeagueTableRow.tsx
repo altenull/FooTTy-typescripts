@@ -26,8 +26,8 @@ class LeagueTableRow extends React.Component<Props> {
     return (
       <tr className={cx('LeagueTableRow')} onClick={() => onSelectTeam(teamId)}>
         <th className={cx('LeagueTableRow__th')}>{rank}</th>
-        <td className={cx('LeagueTableRow__td')}>
-          <span>{badgeUrl ? <img src={badgeUrl} width={'36px'}/> : 'No image'}</span>, {data.name}
+        <td className={cx('LeagueTableRow__td', 'LeagueTableRow__td--align-left')}>
+          <span>{badgeUrl ? <img src={badgeUrl} width={'36px'}/> : 'No image'}</span> {data.name}
         </td>
         <td className={cx('LeagueTableRow__td')}>{data.played}</td>
         <td className={cx('LeagueTableRow__td')}>{data.win}</td>
