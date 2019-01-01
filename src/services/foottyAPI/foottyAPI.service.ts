@@ -3,7 +3,9 @@ import {foottyEndPoint} from '../service.env';
 import {
   GetAllTeamsInLeaguePayload,
   GetLeagueSeasonsPayload,
-  GetLeagueTablePayload, GetNextEventsPayload
+  GetLeagueTablePayload,
+  GetNextEventsPayload,
+  GetAllPlayersInTeamPayload
 } from './models';
 
 class FoottyAPIService {
@@ -37,6 +39,14 @@ class FoottyAPIService {
     return axios.get(url)
         .then((response) => response.data)
         .catch((error) => console.error(error));
+  };
+
+  getAllPlayersInTeam = (payload: GetAllPlayersInTeamPayload) => {
+    const url: string = `${foottyEndPoint}/lookup_all_players.php?id=${payload.teamId}`;
+
+    return axios.get(url)
+      .then((response) => response.data)
+      .catch((error) => console.error(error));
   };
 }
 

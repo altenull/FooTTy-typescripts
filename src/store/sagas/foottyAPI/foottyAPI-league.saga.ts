@@ -3,7 +3,8 @@ import {createAsyncActionCreator, createSagaActionCreator} from '../../../lib/fu
 import {
   GET_ALL_TEAMS_IN_LEAGUE,
   GET_LEAGUE_SEASONS,
-  GET_LEAGUE_TABLE, GET_NEXT_EVENTS
+  GET_LEAGUE_TABLE,
+  GET_NEXT_EVENTS
 } from '../../modules/foottyAPI/foottyAPI-league.module';
 import {SET_SELECTED_SEASON} from '../../modules/league/league.module';
 import {
@@ -13,9 +14,12 @@ import {
   GetLeagueSeasonsAction,
   GetLeagueSeasonsResponse,
   GetLeagueTableAction,
-  GetLeagueTableResponse, GetNextEventsAction, GetNextEventsResponse,
+  GetLeagueTableResponse,
+  GetNextEventsAction,
+  GetNextEventsResponse,
   LeagueSeason,
-  LeagueTable, ObjectizedEventInLeague,
+  LeagueTable,
+  ObjectizedEventInLeague,
   ObjectizedLeagueTable,
   ObjectizedTeamInLeague,
   TeamInLeague

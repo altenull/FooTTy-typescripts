@@ -5,11 +5,17 @@ import {
   actionCreators as foottyAPILeagueActionCreators,
   reducer as foottyAPILeagueReducer
 } from './foottyAPI-league.module';
+import {
+  actionCreators as foottyAPITeamActionCreators,
+  reducer as foottyAPITeamReducer
+} from './foottyAPI-team.module';
 
 export const actionCreators: FoottyAPIActionCreators = {
-  ...foottyAPILeagueActionCreators
+  ...foottyAPILeagueActionCreators,
+  ...foottyAPITeamActionCreators
 };
 
 export const reducer: Reducer<FoottyAPIState> = combineReducers<FoottyAPIState>({
-  foottyAPILeague: foottyAPILeagueReducer
+  foottyAPILeague: foottyAPILeagueReducer,
+  foottyAPITeam: foottyAPITeamReducer
 });
