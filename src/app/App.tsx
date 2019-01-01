@@ -13,6 +13,11 @@ const LeaguePage = Loadable({
   loading: () => null
 });
 
+const TeamPage = Loadable({
+  loader: () => import('./pages/TeamPage'),
+  loading: () => null
+});
+
 class App extends React.Component {
   lang: string | null = null;
 
@@ -32,7 +37,8 @@ class App extends React.Component {
                    return (
                      <LocaleProvider lang={this.getLanguage(location.search)}>
                        <Route path={'/'} component={HomePage} exact={true}/>
-                       <Route path={'/:league'} component={LeaguePage}/>
+                       <Route path={'/:league'} component={LeaguePage} exact={true}/>
+                       <Route path={'/:league/:team'} component={TeamPage} exact={true}/>
                      </LocaleProvider>
                    );
                  }}/>

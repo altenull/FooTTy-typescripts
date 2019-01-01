@@ -19,7 +19,7 @@ interface Props {
 
 class LeagueTableContainer extends React.Component<Props> {
   handleSelectTeam = (teamId: string): void => {
-    alert(`selected teamId is ${teamId}`);
+    window.location.href = `${window.location.href}/${teamId}`;
   };
 
   render() {

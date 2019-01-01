@@ -5,7 +5,7 @@ import * as classNames from 'classnames/bind';
 const cx = classNames.bind(styles);
 
 interface Props {
-  badge: string;
+  badge?: string;
   copy: string;
 }
 
