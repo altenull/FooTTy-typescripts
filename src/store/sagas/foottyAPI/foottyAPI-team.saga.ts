@@ -24,8 +24,8 @@ export function* getAllPlayersInTeam(action: GetAllPlayersInTeamAction) {
         [player.idPlayer]: {
           idTeam: player.idTeam ? player.idTeam : null,
           idPlayerManager: player.idPlayerManager ? player.idPlayerManager : null,
-          strNationality: player.strNationality ? player.strNationality : null,
-          strPlayer: player.strPlayer ? player.strPlayer : null,
+          strNationality: player.strNationality,
+          strPlayer: player.strPlayer,
           dateBorn: player.dateBorn ? player.dateBorn : null,
           strPosition: player.strPosition ? player.strPosition : null,
           strFacebook: player.strFacebook ? player.strFacebook : null,

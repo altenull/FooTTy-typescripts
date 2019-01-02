@@ -29,8 +29,8 @@ export interface Player {
   idTeam: string | null;
   idSoccerXML: string | null;
   idPlayerManager: string | null;
-  strNationality: string | null;
-  strPlayer: string | null;
+  strNationality: string;
+  strPlayer: string;
   strTeam: string | null;
   strSport: string | null;
   intSoccerXMLTeamID: string | null;
@@ -80,8 +80,8 @@ export interface GetAllPlayersInTeamResponse {
 export interface ObjectizedPlayerInTeam {
   idTeam: string | null;
   idPlayerManager: string | null;
-  strNationality: string | null;
-  strPlayer: string | null;
+  strNationality: string;
+  strPlayer: string;
   dateBorn: string | null;
   strPosition: string | null;
   strFacebook: string | null;
