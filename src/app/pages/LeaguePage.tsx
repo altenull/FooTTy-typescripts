@@ -12,7 +12,7 @@ import SeasonSelectorContainer from '../league/containers/SeasonSelector.contain
 import LeagueTableContainer from '../league/containers/LeagueTable.container';
 
 import PageTemplate from '../base/components/PageTemplate/PageTemplate';
-import ParallelogramHeader from '../base/components/ParallelogramHeader/ParallelogramHeader';
+import ParallelogramHeader from '../ui/components/ParallelogramHeader/ParallelogramHeader';
 import TwoColumnTemplate from '../base/components/TwoColumnTemplate/TwoColumnTemplate';
 
 interface Props extends RouteComponentProps<any> {

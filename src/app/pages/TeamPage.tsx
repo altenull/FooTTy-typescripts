@@ -5,7 +5,7 @@ import {GetAllPlayersInTeamPayload} from '../../services/foottyAPI/models';
 import {withLocale} from '../../contexts/localeContext';
 
 import PageTemplate from '../base/components/PageTemplate/PageTemplate';
-import ParallelogramHeader from '../base/components/ParallelogramHeader/ParallelogramHeader';
+import ParallelogramHeader from '../ui/components/ParallelogramHeader/ParallelogramHeader';
 import TwoColumnTemplate from '../base/components/TwoColumnTemplate/TwoColumnTemplate';
 import PlayerListContainer from '../team/containers/PlayerList.container';
 
@@ -31,12 +31,12 @@ class TeamPage extends React.Component<Props> {
     const pageHeaderCopy: string = 'Team Page';
     const pageHeader: React.ReactNode = <ParallelogramHeader copy={pageHeaderCopy}/>;
 
-    // const left: React.ReactNode = <SeasonSelectorContainer leagueId={this.currentLeagueId}/>;
+    // const left: React.ReactNode = <HexagonLabel/>;
     const right: React.ReactNode = <PlayerListContainer/>;
 
     return (
         <PageTemplate pageHeader={pageHeader}>
-          <TwoColumnTemplate left={<div>Team page Left</div>}
+          <TwoColumnTemplate left={<div>Team Page</div>}
                              right={right}/>
         </PageTemplate>
     );
