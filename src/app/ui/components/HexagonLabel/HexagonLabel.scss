@@ -1,41 +1,49 @@
 .HexagonLabel {
-  display: flex;
-  justify-content: space-between;
-  max-width: 360px;
+  display: inline;
+  position: relative;
 
-  .HexagonLabel__hexagon-shadower--right {
+  .HexagonLabel__hexagon-cutter--right,
+  .HexagonLabel__hexagon-cutter--left {
+    overflow: hidden;
     width: 140px;
     height: 120px;
-    margin: 0;
-    overflow: hidden;
+  }
+  .HexagonLabel__hexagon-cutter--right {
     transform: rotate(120deg);
   }
-  .HexagonLabel__hexagon-shadower--left {
-    overflow: hidden;
+  .HexagonLabel__hexagon-cutter--left {
+    transform: rotate(-60deg);
+  }
+  .HexagonLabel__hexagon,
+  .HexagonLabel__hexagon-curtain {
+    position: absolute;
     width: 100%;
     height: 100%;
     transform: rotate(-60deg);
   }
   .HexagonLabel__hexagon {
-    width: 100%;
-    height: 100%;
     background-repeat: no-repeat;
     background-position: 50%;
     background-size: cover;
-    visibility: visible;
-    transform: rotate(-60deg);
   }
-  .HexagonLabel__header-group {
+  .HexagonLabel__hexagon-curtain {
+    padding-top: 8px;
     display: flex;
-    flex-direction: column;
     justify-content: center;
-    color: #FFFFFF;
-
-    h3 {
-      margin: 0;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.6);
+    user-select: none;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.2s ease-out;
+    &:hover {
+      opacity: 1;
     }
-    h4 {
-      margin: 0;
+    span {
+      font-size: 0.875rem;
+      color: #FFFFFF;
+      max-width: 75%;
+      text-align: center;
     }
   }
 }

@@ -12,6 +12,7 @@ class PlayerListContainer extends React.Component<Props> {
   render() {
     const {allPlayersInTeam} = this.props;
 
+    // TODO: Handle loading
     if (!allPlayersInTeam) {
       return <div style={{color: 'white'}}>Loading...</div>;
     }
@@ -20,8 +21,7 @@ class PlayerListContainer extends React.Component<Props> {
       return (
         <HexagonLabel key={playerId}
                       imgUrl={allPlayersInTeam[playerId].strThumb}
-                      mainHeader={allPlayersInTeam[playerId].strPlayer}
-                      subHeader={allPlayersInTeam[playerId].strPosition}/>
+                      label={allPlayersInTeam[playerId].strPlayer}/>
       );
     });
 
