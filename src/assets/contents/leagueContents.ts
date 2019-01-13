@@ -4,6 +4,7 @@ import LLBadgeGrey from '../images/LL-badge-grey.png';
 import LLBadge from '../images/LL-badge.png';
 import BLBadgeGrey from '../images/BL-badge-grey.png';
 import BLBadge from '../images/BL-badge.png';
+import SABadge from '../images/SA-badge.png';
 
 export const leagueContents = {
   en: {
@@ -34,7 +35,16 @@ export const leagueContents = {
         country: 'Germany',
         badgeGrey: BLBadgeGrey,
         badge: BLBadge
-      }
+      },
+      4332: {
+        alias: 'SA',
+        name: 'seriea',
+        displayName: 'Serie A',
+        fullName: 'Italian Serie A',
+        country: 'Italy',
+        badgeGrey: SABadge,
+        badge: SABadge
+      },
     },
     leagueTable: {
       position: 'Position',
@@ -78,7 +88,16 @@ export const leagueContents = {
         country: 'Germany',
         badgeGrey: BLBadgeGrey,
         badge: BLBadge
-      }
+      },
+      4332: {
+        alias: 'SA',
+        name: 'seriea',
+        displayName: '세리에 A',
+        fullName: 'Italian Serie A',
+        country: 'Italy',
+        badgeGrey: SABadge,
+        badge: SABadge
+      },
     },
     leagueTable: {
       position: '순위',
