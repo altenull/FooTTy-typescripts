@@ -3,19 +3,25 @@ import {FoottyAPIActionCreators, FoottyAPIState} from '../../models/foottyAPI/fo
 
 import {
   actionCreators as foottyAPILeagueActionCreators,
-  reducer as foottyAPILeagueReducer
+  reducer as foottyAPILeagueReducer,
 } from './foottyAPI-league.module';
 import {
   actionCreators as foottyAPITeamActionCreators,
-  reducer as foottyAPITeamReducer
+  reducer as foottyAPITeamReducer,
 } from './foottyAPI-team.module';
+import {
+  actionCreators as foottyAPIPlayerActionCreators,
+  reducer as foottyAPIPlayerReducer,
+} from './foottyAPI-player.module';
 
 export const actionCreators: FoottyAPIActionCreators = {
   ...foottyAPILeagueActionCreators,
-  ...foottyAPITeamActionCreators
+  ...foottyAPITeamActionCreators,
+  ...foottyAPIPlayerActionCreators,
 };
 
 export const reducer: Reducer<FoottyAPIState> = combineReducers<FoottyAPIState>({
   foottyAPILeague: foottyAPILeagueReducer,
-  foottyAPITeam: foottyAPITeamReducer
+  foottyAPITeam: foottyAPITeamReducer,
+  foottyAPIPlayer: foottyAPIPlayerReducer,
 });

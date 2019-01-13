@@ -5,7 +5,7 @@ import {
   GetLeagueSeasonsPayload,
   GetLeagueTablePayload,
   GetNextEventsPayload,
-  GetAllPlayersInTeamPayload
+  GetAllPlayersInTeamPayload, GetFormerTeamsPayload
 } from './models';
 
 class FoottyAPIService {
@@ -47,6 +47,14 @@ class FoottyAPIService {
     return axios.get(url)
       .then((response) => response.data)
       .catch((error) => console.error(error));
+  };
+
+  getFormerTeams = (payload: GetFormerTeamsPayload) => {
+    const url: string = `${foottyEndPoint}/lookupformerteams.php?id=${payload.playerId}`;
+
+    return axios.get(url)
+        .then((response) => response.data)
+        .catch((error) => console.error(error));
   };
 }
 

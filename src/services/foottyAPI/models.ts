@@ -18,3 +18,7 @@ export interface GetNextEventsPayload {
 export interface GetAllPlayersInTeamPayload {
   teamId: string;
 }
+
+export interface GetFormerTeamsPayload {
+  playerId: string;
+}
