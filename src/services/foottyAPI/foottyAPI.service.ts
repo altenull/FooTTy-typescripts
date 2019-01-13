@@ -10,7 +10,7 @@ import {
 
 class FoottyAPIService {
   getAllTeamsInLeague = (payload: GetAllTeamsInLeaguePayload) => {
-    const url: string = `${foottyEndPoint}/search_all_teams.php?s=Soccer&c=${payload.country}`;
+    const url: string = `${foottyEndPoint}/search_all_teams.php?l=${payload.league}`;
 
     return axios.get(url)
         .then((response) => response.data)

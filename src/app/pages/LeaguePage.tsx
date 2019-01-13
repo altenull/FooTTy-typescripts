@@ -37,9 +37,9 @@ class LeaguePage extends React.Component<Props> {
   initLeaguePage = (leagueId: string): void => {
     const {localizedContents} = this.props;
     const leagueCollection = localizedContents.league.leagueCollection;
-    const country: string = leagueCollection[leagueId].country;
+    const league: string = leagueCollection[leagueId].fullName;
 
-    FoottyAPIActions.getAllTeamsInLeague({country} as GetAllTeamsInLeaguePayload);
+    FoottyAPIActions.getAllTeamsInLeague({league} as GetAllTeamsInLeaguePayload);
     FoottyAPIActions.getLeagueSeasons({leagueId} as GetLeagueSeasonsPayload);
     FoottyAPIActions.getNextEvents({leagueId} as GetNextEventsPayload);
   };
