@@ -4,7 +4,7 @@ import {RootState} from '../../../store/modules';
 import {ObjectizedPlayerInTeam} from '../../../store/models/foottyAPI/foottyAPI-team.model';
 import HexagonLabel from '../../ui/components/HexagonLabel/HexagonLabel';
 import {FoottyAPIActions} from '../../../store/actionCreators';
-import {GetFormerTeamsPayload} from '../../../services/foottyAPI/models';
+import {GetFormerTeamsPayload, GetHonoursPayload} from '../../../services/foottyAPI/models';
 
 interface Props {
   allPlayersInTeam: {[playerId: string]: ObjectizedPlayerInTeam} | null;
@@ -13,6 +13,7 @@ interface Props {
 class PlayerListContainer extends React.Component<Props> {
   handleSelectPlayer = (playerId: string) => {
     FoottyAPIActions.getFormerTeams({playerId} as GetFormerTeamsPayload);
+    FoottyAPIActions.getHonours({playerId} as GetHonoursPayload)
   };
 
   render() {

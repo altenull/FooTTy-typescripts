@@ -1,14 +1,15 @@
 import {call, takeLatest, all, put} from 'redux-saga/effects';
 import {createAsyncActionCreator} from '../../../lib/functions/sagaAction';
-import {GET_FORMER_TEAMS} from '../../modules/foottyAPI/foottyAPI-player.module';
+import {GET_FORMER_TEAMS, GET_HONOURS} from '../../modules/foottyAPI/foottyAPI-player.module';
 import {
   FormerTeam,
   GetFormerTeamsAction,
-  GetFormerTeamsResponse, ObjectizedFormerTeam,
+  GetFormerTeamsResponse, GetHonoursAction, GetHonoursResponse, Honour, ObjectizedFormerTeam, ObjectizedHonour,
 } from '../../models/foottyAPI/foottyAPI-player.model';
 import foottyAPIService from '../../../services/foottyAPI/foottyAPI.service';
 
 export const getFormerTeamsActionCreator = createAsyncActionCreator(GET_FORMER_TEAMS);
+export const getHonoursActionCreator = createAsyncActionCreator(GET_HONOURS);
 
 export function* getFormerTeams(action: GetFormerTeamsAction) {
   yield put(getFormerTeamsActionCreator.request());
@@ -35,8 +36,35 @@ export function* getFormerTeams(action: GetFormerTeamsAction) {
   }
 }
 
+export function* getHonours(action: GetHonoursAction) {
+  yield put(getHonoursActionCreator.request());
+
+  try {
+    const response: GetHonoursResponse = yield call(() => foottyAPIService.getHonours(action.payload));
+    const honours: {[honourId: string]: ObjectizedHonour} = response.honors.reduce((acc: {[honourId: string]: ObjectizedHonour}, honour: Honour) => {
+      return {
+        ...acc,
+        [honour.id]: {
+          playerId: honour.idPlayer,
+          teamId: honour.idTeam,
+          strPlayer: honour.strPlayer,
+          strTeam: honour.strTeam,
+          strHonour: honour.strHonour,
+          strSeason: honour.strSeason,
+        }
+      };
+    }, {});
+
+    yield put(getHonoursActionCreator.success(honours));
+  } catch (error) {
+    yield put(getHonoursActionCreator.fail());
+  }
+}
+
+
 export default function* foottyAPIPlayerSaga() {
   yield all([
-    takeLatest(GET_FORMER_TEAMS.INDEX as any, getFormerTeams)
+    takeLatest(GET_FORMER_TEAMS.INDEX as any, getFormerTeams),
+    takeLatest(GET_HONOURS.INDEX as any, getHonours),
   ])
 };
