@@ -19,13 +19,13 @@ const TeamPage = Loadable({
 });
 
 class App extends React.Component {
-  lang: string | null = null;
+  hl: string | null = null;
 
-  getLanguage = (locationSearch: string): string | null => {
+  getHostLanguage = (locationSearch: string): string | null => {
     const searchParams = new URLSearchParams(locationSearch);
-    this.lang = this.lang ? this.lang : searchParams.get('lang');
+    this.hl = this.hl ? this.hl : searchParams.get('hl');
 
-    return this.lang;
+    return this.hl;
   };
 
   render() {
@@ -35,7 +35,7 @@ class App extends React.Component {
           <Route path={'/'}
                  render={({location}) => {
                    return (
-                     <LocaleProvider lang={this.getLanguage(location.search)}>
+                     <LocaleProvider hl={this.getHostLanguage(location.search)}>
                        <Route path={'/'} component={HomePage} exact={true}/>
                        <Route path={'/:league'} component={LeaguePage} exact={true}/>
                        <Route path={'/:league/:team'} component={TeamPage} exact={true}/>

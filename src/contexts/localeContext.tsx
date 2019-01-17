@@ -4,8 +4,8 @@ import {foottyContents} from '../assets/contents/foottyContents';
 const LocaleContext = React.createContext(foottyContents.en);
 
 export const LocaleProvider = (props: any) => {
-  const value = (!!props.lang && !!foottyContents[props.lang]) ?
-      foottyContents[props.lang] :
+  const value = (!!props.hl && !!foottyContents[props.hl]) ?
+      foottyContents[props.hl] :
       foottyContents.en;
 
   return (
