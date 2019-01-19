@@ -1,16 +1,18 @@
 import axios from 'axios';
-import {foottyEndPoint} from '../service.env';
+import {privateFoottyEndPoint, publicFoottyEndPoint} from '../service.env';
 import {
   GetAllTeamsInLeaguePayload,
   GetLeagueSeasonsPayload,
   GetLeagueTablePayload,
   GetNextEventsPayload,
-  GetAllPlayersInTeamPayload, GetFormerTeamsPayload, GetHonoursPayload
+  GetAllPlayersInTeamPayload,
+  GetFormerTeamsPayload,
+  GetHonoursPayload,
 } from './models';
 
 class FoottyAPIService {
   getAllTeamsInLeague = (payload: GetAllTeamsInLeaguePayload) => {
-    const url: string = `${foottyEndPoint}/search_all_teams.php?l=${payload.league}`;
+    const url: string = `${privateFoottyEndPoint}/search_all_teams.php?l=${payload.league}`;
 
     return axios.get(url)
         .then((response) => response.data)
@@ -18,7 +20,7 @@ class FoottyAPIService {
   };
 
   getLeagueSeasons = (payload: GetLeagueSeasonsPayload) => {
-    const url: string = `${foottyEndPoint}/lookupleague.php?id=${payload.leagueId}&s=all`;
+    const url: string = `${privateFoottyEndPoint}/lookupleague.php?id=${payload.leagueId}&s=all`;
 
     return axios.get(url)
         .then((response) => response.data)
@@ -26,7 +28,7 @@ class FoottyAPIService {
   };
 
   getLeagueTable = (payload: GetLeagueTablePayload) => {
-    const url: string = `${foottyEndPoint}/lookuptable.php?l=${payload.leagueId}&s=${payload.selectedSeason}`;
+    const url: string = `${privateFoottyEndPoint}/lookuptable.php?l=${payload.leagueId}&s=${payload.selectedSeason}`;
 
     return axios.get(url)
         .then((response) => response.data)
@@ -34,7 +36,7 @@ class FoottyAPIService {
   };
 
   getNextEvents = (payload: GetNextEventsPayload) => {
-    const url: string = `${foottyEndPoint}/eventsnextleague.php?id=${payload.leagueId}`;
+    const url: string = `${privateFoottyEndPoint}/eventsnextleague.php?id=${payload.leagueId}`;
 
     return axios.get(url)
         .then((response) => response.data)
@@ -42,7 +44,7 @@ class FoottyAPIService {
   };
 
   getAllPlayersInTeam = (payload: GetAllPlayersInTeamPayload) => {
-    const url: string = `${foottyEndPoint}/lookup_all_players.php?id=${payload.teamId}`;
+    const url: string = `${privateFoottyEndPoint}/lookup_all_players.php?id=${payload.teamId}`;
 
     return axios.get(url)
       .then((response) => response.data)
@@ -50,7 +52,7 @@ class FoottyAPIService {
   };
 
   getFormerTeams = (payload: GetFormerTeamsPayload) => {
-    const url: string = `${foottyEndPoint}/lookupformerteams.php?id=${payload.playerId}`;
+    const url: string = `${publicFoottyEndPoint}/lookupformerteams.php?id=${payload.playerId}`;
 
     return axios.get(url)
         .then((response) => response.data)
@@ -58,7 +60,7 @@ class FoottyAPIService {
   };
 
   getHonours = (payload: GetHonoursPayload) => {
-    const url: string = `${foottyEndPoint}/lookuphonors.php?id=${payload.playerId}`;
+    const url: string = `${publicFoottyEndPoint}/lookuphonors.php?id=${payload.playerId}`;
 
     return axios.get(url)
         .then((response) => response.data)
