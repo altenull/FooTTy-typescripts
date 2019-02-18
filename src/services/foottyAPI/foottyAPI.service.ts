@@ -20,7 +20,7 @@ class FoottyAPIService {
   };
 
   getLeagueSeasons = (payload: GetLeagueSeasonsPayload) => {
-    const url: string = `${privateFoottyEndPoint}/lookupleague.php?id=${payload.leagueId}&s=all`;
+    const url: string = `${privateFoottyEndPoint}/search_all_seasons.php?id=${payload.leagueId}`;
 
     return axios.get(url)
         .then((response) => response.data)

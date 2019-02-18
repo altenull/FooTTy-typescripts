@@ -64,7 +64,7 @@ export interface LeagueSeason {
   strSeason: string;
 }
 export interface GetLeagueSeasonsResponse {
-  leagues: LeagueSeason[];
+  seasons: LeagueSeason[];
 }
 
 export interface LeagueTable {

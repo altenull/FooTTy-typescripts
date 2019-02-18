@@ -38,7 +38,7 @@ export function* getLeagueSeasons(action: GetLeagueSeasonsAction) {
 
   try {
     const response: GetLeagueSeasonsResponse = yield call(() => foottyAPIService.getLeagueSeasons(action.payload));
-    const seasons: string[] = response.leagues.reduce((acc: string[], season: LeagueSeason) => {
+    const seasons: string[] = response.seasons.reduce((acc: string[], season: LeagueSeason) => {
       return [
         ...acc,
         season.strSeason
