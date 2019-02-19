@@ -2,9 +2,12 @@ import * as React from 'react';
 import {connect} from 'react-redux';
 import {RootState} from '../../../store/modules';
 import {ObjectizedPlayerInTeam} from '../../../store/models/foottyAPI/foottyAPI-team.model';
-import HexagonLabel from '../../ui/components/HexagonLabel/HexagonLabel';
 import {FoottyAPIActions} from '../../../store/actionCreators';
 import {GetFormerTeamsPayload, GetHonoursPayload} from '../../../services/foottyAPI/models';
+
+import HexagonLabel from '../../ui/components/HexagonLabel/HexagonLabel';
+import OddGridWrapper from '../components/OddGridWrapper/OddGridWrapper';
+import EvenGridWrapper from '../components/EvenGridWrapper/EvenGridWrapper';
 
 interface Props {
   allPlayersInTeam: {[playerId: string]: ObjectizedPlayerInTeam} | null;
@@ -25,20 +28,55 @@ class PlayerListContainer extends React.Component<Props> {
       return <div style={{color: 'white'}}>Loading...</div>;
     }
 
-    const playerList: React.ReactNode = Object.keys(allPlayersInTeam).map((playerId: string) => {
+    const wholePlayerIds: string[] = Object.keys(allPlayersInTeam);
+    const pusherFlags = [40, 36, 31, 27, 22, 18, 13, 9, 4]; // Assume maximum player is 40.
+
+    let pusher: string[] = [];
+    let pusherIndex: number | undefined = pusherFlags.pop();
+    let hierarchicalPlayerIds: string[][] = [];
+
+    for (let i = 0; i < wholePlayerIds.length; i++) {
+      if (pusherIndex != null && i < pusherIndex) {
+        pusher.push(wholePlayerIds[i]);
+        if (i === (wholePlayerIds.length - 1)) {
+          hierarchicalPlayerIds = [
+            ...hierarchicalPlayerIds,
+            [...pusher]
+          ];
+        }
+      } else {
+        hierarchicalPlayerIds = [
+          ...hierarchicalPlayerIds,
+          [...pusher]
+        ];
+        pusher = [];
+        pusher.push(wholePlayerIds[i]);
+        pusherIndex = pusherFlags.pop();
+      }
+    }
+
+    const playerList: React.ReactNode = hierarchicalPlayerIds.map((playerIds: string[], index: number) => {
+      const GridWrapper = ((index % 2) === 0) ? OddGridWrapper : EvenGridWrapper;
+
       return (
-        <HexagonLabel key={playerId}
-                      id={playerId}
-                      imgUrl={allPlayersInTeam[playerId].strThumb}
-                      label={allPlayersInTeam[playerId].strPlayer}
-                      onSelectPlayer={handleSelectPlayer}/>
-      );
+        <GridWrapper key={index}>
+          {playerIds.map((playerId: string) => {
+            return (
+              <HexagonLabel key={playerId}
+                            id={playerId}
+                            imgUrl={allPlayersInTeam[playerId].strThumb}
+                            label={allPlayersInTeam[playerId].strPlayer}
+                            onSelectPlayer={handleSelectPlayer}/>
+            );
+          })}
+        </GridWrapper>
+      )
     });
 
     return (
-      <div>
+      <React.Fragment>
         {playerList}
-      </div>
+      </React.Fragment>
     );
   }
 }

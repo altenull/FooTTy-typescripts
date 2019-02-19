@@ -1,0 +1,6 @@
+.EvenGridWrapper {
+  display: grid;
+  grid-template-columns: repeat(5, 140px);
+  grid-gap: 80px;
+  margin-bottom: -56px;
+}

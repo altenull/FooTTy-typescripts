@@ -1,0 +1,7 @@
+.OddGridWrapper {
+  display: grid;
+  grid-template-columns: repeat(4, 140px);
+  grid-gap: 80px;
+  margin-bottom: -56px;
+  margin-left: 110px;
+}
