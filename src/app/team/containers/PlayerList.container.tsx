@@ -29,7 +29,7 @@ class PlayerListContainer extends React.Component<Props> {
     }
 
     const wholePlayerIds: string[] = Object.keys(allPlayersInTeam);
-    const pusherFlags = [40, 36, 31, 27, 22, 18, 13, 9, 4]; // Assume maximum player is 40.
+    const pusherFlags = [42, 38, 35, 31, 28, 24, 21, 17, 14, 10, 7, 3]; // Assume maximum player is 42.
 
     let pusher: string[] = [];
     let pusherIndex: number | undefined = pusherFlags.pop();
