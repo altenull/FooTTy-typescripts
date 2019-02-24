@@ -64,7 +64,7 @@ class PlayerListContainer extends React.Component<Props> {
             return (
               <HexagonLabel key={playerId}
                             id={playerId}
-                            imgUrl={allPlayersInTeam[playerId].strThumb}
+                            imgUrl={allPlayersInTeam[playerId].thumbUrl}
                             label={allPlayersInTeam[playerId].strPlayer}
                             onSelectPlayer={handleSelectPlayer}/>
             );

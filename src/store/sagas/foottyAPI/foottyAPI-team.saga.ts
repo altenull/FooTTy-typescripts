@@ -28,14 +28,14 @@ export function* getAllPlayersInTeam(action: GetAllPlayersInTeamAction) {
           strPlayer: player.strPlayer,
           dateBorn: player.dateBorn ? player.dateBorn : null,
           strPosition: player.strPosition ? player.strPosition : null,
-          strFacebook: player.strFacebook ? player.strFacebook : null,
-          strWebsite: player.strWebsite ? player.strWebsite : null,
-          strTwitter: player.strTwitter ? player.strTwitter : null,
-          strInstagram: player.strInstagram ? player.strInstagram : null,
-          strYoutube: player.strYoutube ? player.strYoutube : null,
           strHeight: player.strHeight ? player.strHeight : null,
           strWeight: player.strWeight ? player.strWeight : null,
-          strThumb: player.strThumb ? player.strThumb : null
+          facebookUrl: player.strFacebook ? player.strFacebook : null,
+          websiteUrl: player.strWebsite ? player.strWebsite : null,
+          twitterUrl: player.strTwitter ? player.strTwitter : null,
+          instagramUrl: player.strInstagram ? player.strInstagram : null,
+          youtubeUrl: player.strYoutube ? player.strYoutube : null,
+          thumbUrl: player.strThumb ? player.strThumb : null
         }
       };
     }, {});

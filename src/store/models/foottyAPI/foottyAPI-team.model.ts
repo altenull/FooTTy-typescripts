@@ -84,12 +84,12 @@ export interface ObjectizedPlayerInTeam {
   strPlayer: string;
   dateBorn: string | null;
   strPosition: string | null;
-  strFacebook: string | null;
-  strWebsite: string | null;
-  strTwitter: string | null;
-  strInstagram: string | null;
-  strYoutube: string | null;
   strHeight: string | null;
   strWeight: string | null;
-  strThumb: string | null;
+  facebookUrl: string | null;
+  websiteUrl: string | null;
+  twitterUrl: string | null;
+  instagramUrl: string | null;
+  youtubeUrl: string | null;
+  thumbUrl: string | null;
 }
