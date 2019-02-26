@@ -2,6 +2,7 @@ import * as React from 'react';
 import {RouteComponentProps} from 'react-router-dom';
 import {FoottyAPIActions, LeagueActions} from '../../store/actionCreators';
 import {
+  GetLeagueDetailsPayload,
   GetAllTeamsInLeaguePayload,
   GetLeagueSeasonsPayload,
   GetNextEventsPayload
@@ -39,6 +40,7 @@ class LeaguePage extends React.Component<Props> {
     const leagueCollection = localizedContents.league.leagueCollection;
     const league: string = leagueCollection[leagueId].fullName;
 
+    FoottyAPIActions.getLeagueDetails({leagueId} as GetLeagueDetailsPayload);
     FoottyAPIActions.getAllTeamsInLeague({league} as GetAllTeamsInLeaguePayload);
     FoottyAPIActions.getLeagueSeasons({leagueId} as GetLeagueSeasonsPayload);
     FoottyAPIActions.getNextEvents({leagueId} as GetNextEventsPayload);

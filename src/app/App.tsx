@@ -23,7 +23,7 @@ class App extends React.Component {
 
   getHostLanguage = (locationSearch: string): string | null => {
     const searchParams = new URLSearchParams(locationSearch);
-    this.hl = this.hl ? this.hl : searchParams.get('hl');
+    this.hl = this.hl || searchParams.get('hl');
 
     return this.hl;
   };

@@ -1,6 +1,7 @@
 import {call, takeLatest, all, put} from 'redux-saga/effects';
 import {createAsyncActionCreator, createSagaActionCreator} from '../../../lib/functions/sagaAction';
 import {
+  GET_LEAGUE_DETAILS,
   GET_ALL_TEAMS_IN_LEAGUE,
   GET_LEAGUE_SEASONS,
   GET_LEAGUE_TABLE,
@@ -8,30 +9,63 @@ import {
 } from '../../modules/foottyAPI/foottyAPI-league.module';
 import {SET_SELECTED_SEASON} from '../../modules/league/league.module';
 import {
-  EventInLeague,
-  GetAllTeamsInLeagueAction,
-  GetAllTeamsInLeagueResponse,
-  GetLeagueSeasonsAction,
-  GetLeagueSeasonsResponse,
-  GetLeagueTableAction,
-  GetLeagueTableResponse,
-  GetNextEventsAction,
-  GetNextEventsResponse,
+  LeagueDetails,
   LeagueSeason,
   LeagueTable,
-  ObjectizedEventInLeague,
+  TeamInLeague,
+  EventInLeague,
+  ObjectizedLeagueDetails,
   ObjectizedLeagueTable,
   ObjectizedTeamInLeague,
-  TeamInLeague
+  ObjectizedEventInLeague,
+  GetLeagueDetailsAction,
+  GetLeagueSeasonsAction,
+  GetLeagueTableAction,
+  GetAllTeamsInLeagueAction,
+  GetNextEventsAction,
+  GetLeagueDetailsResponse,
+  GetLeagueSeasonsResponse,
+  GetLeagueTableResponse,
+  GetAllTeamsInLeagueResponse,
+  GetNextEventsResponse,
 } from '../../models/foottyAPI/foottyAPI-league.model';
 import foottyAPIService from '../../../services/foottyAPI/foottyAPI.service';
 import {SetSelectedSeasonPayload} from '../../models/league/league.model';
 
 export const setSelectedSeasonAcionCreator = createSagaActionCreator(SET_SELECTED_SEASON);
+export const getLeagueDetailsAsyncActionCreator = createAsyncActionCreator(GET_LEAGUE_DETAILS);
 export const getLeagueSeasonsAsyncActionCreator = createAsyncActionCreator(GET_LEAGUE_SEASONS);
 export const getLeagueTableAsyncActionCreator = createAsyncActionCreator(GET_LEAGUE_TABLE);
 export const getAllTeamsAsyncActionCreator = createAsyncActionCreator(GET_ALL_TEAMS_IN_LEAGUE);
 export const getNextEventsAsyncActionCreator = createAsyncActionCreator(GET_NEXT_EVENTS);
+
+export function* getLeagueDetails(action: GetLeagueDetailsAction) {
+  yield put(getLeagueDetailsAsyncActionCreator.request());
+
+  try {
+    const response: GetLeagueDetailsResponse = yield call(() => foottyAPIService.getLeagueDetails(action.payload));
+    const leagueDetails: { [leagueId: string]: ObjectizedLeagueDetails} = response.leagues.reduce((acc: { [leagueId: string]: ObjectizedLeagueDetails }, leagueDetail: LeagueDetails) => {
+      return {
+        ...acc,
+        [leagueDetail.idLeague]: {
+          strLeague: leagueDetail.strLeague,
+          intFormedYear: leagueDetail.intFormedYear ? leagueDetail.intFormedYear : null,
+          strCountry: leagueDetail.strCountry ? leagueDetail.strCountry : null,
+          websiteUrl: leagueDetail.strWebsite ? leagueDetail.strWebsite : null,
+          facebookUrl: leagueDetail.strFacebook ? leagueDetail.strFacebook : null,
+          twitterUrl: leagueDetail.strTwitter ? leagueDetail.strTwitter : null,
+          youtubeUrl: leagueDetail.strYoutube ? leagueDetail.strYoutube : null,
+          badgeUrl: leagueDetail.strBadge ? leagueDetail.strBadge : null,
+          trophyUrl: leagueDetail.strTrophy ? leagueDetail.strTrophy : null,
+        }
+      };
+    }, {});
+
+    yield put(getLeagueDetailsAsyncActionCreator.success(leagueDetails));
+  } catch (error) {
+    yield put(getLeagueDetailsAsyncActionCreator.fail());
+  }
+}
 
 export function* getLeagueSeasons(action: GetLeagueSeasonsAction) {
   yield put(getLeagueSeasonsAsyncActionCreator.request());
@@ -143,6 +177,7 @@ export function* getNextEvents(action: GetNextEventsAction) {
 
 export default function* foottyAPILeagueSaga() {
   yield all([
+    takeLatest(GET_LEAGUE_DETAILS.INDEX as any, getLeagueDetails),
     takeLatest(GET_LEAGUE_SEASONS.INDEX as any, getLeagueSeasons),
     takeLatest(GET_LEAGUE_TABLE.INDEX as any, getLeagueTable),
     takeLatest(GET_ALL_TEAMS_IN_LEAGUE.INDEX as any, getAllTeamsInLeague),

@@ -1,5 +1,6 @@
 import {ActionType} from '../shared/shared.model';
 import {
+  GetLeagueDetailsPayload,
   GetAllTeamsInLeaguePayload,
   GetLeagueSeasonsPayload,
   GetLeagueTablePayload,
@@ -9,6 +10,10 @@ import {
 // Redux
 export interface FoottyAPILeagueActionCreators {
   resetFoottyAPILeague(): any;
+  getLeagueDetails(payload: GetLeagueDetailsPayload): any;
+  getLeagueDetailsRequest(): any;
+  getLeagueDetailsComplete(): any;
+  getLeagueDetailsFail(): any;
   getAllTeamsInLeague(payload: GetAllTeamsInLeaguePayload): any;
   getAllTeamsInLeagueRequest(): any;
   getAllTeamsInLeagueComplete(): any;
@@ -28,10 +33,14 @@ export interface FoottyAPILeagueActionCreators {
 }
 
 export interface FoottyAPILeagueState {
+  leagueDetails: {[leagueId: string]: ObjectizedLeagueDetails} | null;
   allTeamsInLeague: {[teamId: string]: ObjectizedTeamInLeague} | null;
   seasons: string[];
   leagueTable: {[teamId: string]: ObjectizedLeagueTable} | null;
   nextEvents: {[eventId: string]: ObjectizedEventInLeague} | null;
+  isGetLeagueDetailsLoading: boolean;
+  isGetLeagueDetailsLoaded: boolean;
+  getLeagueDetailsError: string | null;
   isGetAllTeamsInLeagueLoading: boolean;
   isGetAllTeamsInLeagueLoaded: boolean;
   getAllTeamsInLeagueError: string | null;
@@ -47,6 +56,9 @@ export interface FoottyAPILeagueState {
 }
 
 // Redux-Saga
+export interface GetLeagueDetailsAction extends ActionType {
+  payload: GetLeagueDetailsPayload;
+}
 export interface GetLeagueSeasonsAction extends ActionType {
   payload: GetLeagueSeasonsPayload;
 }
@@ -58,6 +70,67 @@ export interface GetAllTeamsInLeagueAction extends ActionType {
 }
 export interface GetNextEventsAction extends ActionType {
   payload: GetNextEventsPayload;
+}
+
+export interface LeagueDetails {
+  idLeague: string;
+  idSoccerXML: string | null;
+  strSport: string;
+  strLeague: string;
+  strLeagueAlternate: string | null;
+  strDivision: string | null;
+  idCup: string | null;
+  intFormedYear: string | null;
+  dateFirstEvent: string | null;
+  strGender: string | null;
+  strCountry: string | null;
+  strWebsite: string | null;
+  strFacebook: string | null;
+  strTwitter: string | null;
+  strYoutube: string | null;
+  strRSS: string | null;
+  strDescriptionEN: string | null;
+  strDescriptionDE: string | null;
+  strDescriptionFR: string | null;
+  strDescriptionIT: string | null;
+  strDescriptionCN: string | null;
+  strDescriptionJP: string | null;
+  strDescriptionRU: string | null;
+  strDescriptionES: string | null;
+  strDescriptionPT: string | null;
+  strDescriptionSE: string | null;
+  strDescriptionNL: string | null;
+  strDescriptionHU: string | null;
+  strDescriptionNO: string | null;
+  strDescriptionPL: string | null;
+  strDescriptionIL: string | null;
+  strFanart1: string | null;
+  strFanart2: string | null;
+  strFanart3: string | null;
+  strFanart4: string | null;
+  strBanner: string | null;
+  strBadge: string | null;
+  strLogo: string | null;
+  strPoster: string | null;
+  strTrophy: string | null;
+  strNaming: string | null;
+  strComplete: string | null;
+  strLocked: string | null;
+}
+export interface ObjectizedLeagueDetails {
+  leagueId: string;
+  strLeague: string;
+  intFormedYear: string | null;
+  strCountry: string | null;
+  websiteUrl: string | null;
+  facebookUrl: string | null;
+  twitterUrl: string | null;
+  youtubeUrl: string | null;
+  badgeUrl: string | null;
+  trophyUrl: string | null;
+}
+export interface GetLeagueDetailsResponse {
+  leagues: LeagueDetails[];
 }
 
 export interface LeagueSeason {

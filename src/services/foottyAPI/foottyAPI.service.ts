@@ -1,6 +1,7 @@
 import axios from 'axios';
 import {privateFoottyEndPoint, publicFoottyEndPoint} from '../service.env';
 import {
+  GetLeagueDetailsPayload,
   GetAllTeamsInLeaguePayload,
   GetLeagueSeasonsPayload,
   GetLeagueTablePayload,
@@ -11,6 +12,14 @@ import {
 } from './models';
 
 class FoottyAPIService {
+  getLeagueDetails = (payload: GetLeagueDetailsPayload) => {
+    const url: string = `${privateFoottyEndPoint}/lookupleague.php?id=${payload.leagueId}`;
+
+    return axios.get(url)
+        .then((response) => response.data)
+        .catch((error) => console.error(error));
+  };
+
   getAllTeamsInLeague = (payload: GetAllTeamsInLeaguePayload) => {
     const url: string = `${privateFoottyEndPoint}/search_all_teams.php?l=${payload.league}`;
 
