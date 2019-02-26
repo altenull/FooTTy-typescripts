@@ -1,4 +1,4 @@
-import {ActionType} from '../shared/shared.model';
+import {ActionType, SocialUrls} from '../shared/shared.model';
 import {
   GetLeagueDetailsPayload,
   GetAllTeamsInLeaguePayload,
@@ -122,12 +122,9 @@ export interface ObjectizedLeagueDetails {
   strLeague: string;
   intFormedYear: string | null;
   strCountry: string | null;
-  websiteUrl: string | null;
-  facebookUrl: string | null;
-  twitterUrl: string | null;
-  youtubeUrl: string | null;
   badgeUrl: string | null;
   trophyUrl: string | null;
+  socialUrls: SocialUrls;
 }
 export interface GetLeagueDetailsResponse {
   leagues: LeagueDetails[];
@@ -223,12 +220,8 @@ export interface TeamInLeague {
 export interface ObjectizedTeamInLeague {
   formedYear: string | null;
   stadiumCapacity: string | null;
-  facebookUrl: string | null;
-  instagramUrl: string | null;
-  twitterUrl: string | null;
-  youtubeUrl: string | null;
-  websiteUrl: string | null;
   badgeUrl: string | null;
+  socialUrls: SocialUrls;
 }
 export interface GetAllTeamsInLeagueResponse {
   teams: TeamInLeague[]

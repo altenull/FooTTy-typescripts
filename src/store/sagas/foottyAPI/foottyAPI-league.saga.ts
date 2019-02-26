@@ -51,12 +51,14 @@ export function* getLeagueDetails(action: GetLeagueDetailsAction) {
           strLeague: leagueDetail.strLeague,
           intFormedYear: leagueDetail.intFormedYear ? leagueDetail.intFormedYear : null,
           strCountry: leagueDetail.strCountry ? leagueDetail.strCountry : null,
-          websiteUrl: leagueDetail.strWebsite ? leagueDetail.strWebsite : null,
-          facebookUrl: leagueDetail.strFacebook ? leagueDetail.strFacebook : null,
-          twitterUrl: leagueDetail.strTwitter ? leagueDetail.strTwitter : null,
-          youtubeUrl: leagueDetail.strYoutube ? leagueDetail.strYoutube : null,
           badgeUrl: leagueDetail.strBadge ? leagueDetail.strBadge : null,
           trophyUrl: leagueDetail.strTrophy ? leagueDetail.strTrophy : null,
+          socialUrls: {
+            websiteUrl: leagueDetail.strWebsite ? leagueDetail.strWebsite : null,
+            facebookUrl: leagueDetail.strFacebook ? leagueDetail.strFacebook : null,
+            twitterUrl: leagueDetail.strTwitter ? leagueDetail.strTwitter : null,
+            youtubeUrl: leagueDetail.strYoutube ? leagueDetail.strYoutube : null,
+          },
         }
       };
     }, {});
@@ -130,12 +132,14 @@ export function* getAllTeamsInLeague(action: GetAllTeamsInLeagueAction) {
         [team.idTeam]: {
           formedYear: team.intFormedYear ? team.intFormedYear : null,
           stadiumCapacity: team.intStadiumCapacity ? team.intStadiumCapacity : null,
-          facebookUrl: team.strFacebook ? team.strFacebook : null,
-          instagramUrl: team.strInstagram ? team.strInstagram : null,
-          twitterUrl: team.strTwitter ? team.strTwitter : null,
-          youtubeUrl: team.strYoutube ? team.strYoutube : null,
-          websiteUrl: team.strWebsite ? team.strWebsite : null,
-          badgeUrl: team.strTeamBadge ? team.strTeamBadge : null
+          badgeUrl: team.strTeamBadge ? team.strTeamBadge : null,
+          socialUrls: {
+            websiteUrl: team.strWebsite ? team.strWebsite : null,
+            facebookUrl: team.strFacebook ? team.strFacebook : null,
+            twitterUrl: team.strTwitter ? team.strTwitter : null,
+            instagramUrl: team.strInstagram ? team.strInstagram : null,
+            youtubeUrl: team.strYoutube ? team.strYoutube : null,
+          },
         }
       };
     }, {});

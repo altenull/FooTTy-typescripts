@@ -1,4 +1,4 @@
-import {ActionType} from '../shared/shared.model';
+import {ActionType, SocialUrls} from '../shared/shared.model';
 import {
   GetAllPlayersInTeamPayload
 } from '../../../services/foottyAPI/models';
@@ -86,10 +86,6 @@ export interface ObjectizedPlayerInTeam {
   strPosition: string | null;
   strHeight: string | null;
   strWeight: string | null;
-  facebookUrl: string | null;
-  websiteUrl: string | null;
-  twitterUrl: string | null;
-  instagramUrl: string | null;
-  youtubeUrl: string | null;
+  socialUrls: SocialUrls;
   thumbUrl: string | null;
 }
