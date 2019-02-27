@@ -7,6 +7,7 @@ import {FoottyAPITeamActionCreators, FoottyAPITeamState} from '../../models/foot
 const RESET_FOOTTY_API_TEAM = '@@foottyAPI-team/RESET_FOOTTY_API_TEAM';
 export const GET_ALL_PLAYERS_IN_TEAM = createAsyncActionTypes('@@foottyAPI-team/GET_ALL_PLAYERS_IN_TEAM');
 export const GET_NEXT_5_EVENTS = createAsyncActionTypes('@@foottyAPI-team/GET_NEXT_5_EVENTS');
+export const GET_LAST_5_EVENTS = createAsyncActionTypes('@@foottyAPI-team/GET_LAST_5_EVENTS');
 
 export const actionCreators: FoottyAPITeamActionCreators = {
   resetFoottyAPITeam: createAction(RESET_FOOTTY_API_TEAM),
@@ -18,17 +19,25 @@ export const actionCreators: FoottyAPITeamActionCreators = {
   getNext5EventsRequest: createAction(GET_NEXT_5_EVENTS.REQUEST),
   getNext5EventsComplete: createAction(GET_NEXT_5_EVENTS.SUCCESS),
   getNext5EventsFail: createAction(GET_NEXT_5_EVENTS.FAIL),
+  getLast5Events: createAction(GET_LAST_5_EVENTS.INDEX),
+  getLast5EventsRequest: createAction(GET_LAST_5_EVENTS.REQUEST),
+  getLast5EventsComplete: createAction(GET_LAST_5_EVENTS.SUCCESS),
+  getLast5EventsFail: createAction(GET_LAST_5_EVENTS.FAIL),
 };
 
 export const initialState: FoottyAPITeamState = {
   allPlayersInTeam: null,
   next5Events: null,
+  last5Events: null,
   isGetAllPlayersInTeamLoading: false,
   isGetAllPlayersInTeamLoaded: false,
   getAllPlayersInTeamError: null,
   isGetNext5EventsLoading: false,
   isGetNext5EventsLoaded: false,
   getNext5EventsError: null,
+  isGetLast5EventsLoading: false,
+  isGetLast5EventsLoaded: false,
+  getLast5EventsError: null,
 };
 
 export const reducer: Reducer<FoottyAPITeamState> = handleActions(
@@ -74,6 +83,27 @@ export const reducer: Reducer<FoottyAPITeamState> = handleActions(
     [GET_NEXT_5_EVENTS.FAIL]: (state: FoottyAPITeamState) => {
       return produce(state, (draft) => {
         draft.isGetNext5EventsLoading = false;
+      });
+    },
+    [GET_LAST_5_EVENTS.REQUEST]: (state: FoottyAPITeamState) => {
+      return produce(state, (draft) => {
+        draft.last5Events = null;
+        draft.isGetLast5EventsLoading = true;
+        draft.isGetLast5EventsLoaded = false;
+      });
+    },
+    [GET_LAST_5_EVENTS.SUCCESS]: (state: FoottyAPITeamState, action) => {
+      return produce(state, (draft) => {
+        if (action.payload != null) {
+          draft.last5Events = action.payload as any;
+        }
+        draft.isGetLast5EventsLoading = false;
+        draft.isGetLast5EventsLoaded = true;
+      });
+    },
+    [GET_LAST_5_EVENTS.FAIL]: (state: FoottyAPITeamState) => {
+      return produce(state, (draft) => {
+        draft.isGetLast5EventsLoading = false;
       });
     },
   },

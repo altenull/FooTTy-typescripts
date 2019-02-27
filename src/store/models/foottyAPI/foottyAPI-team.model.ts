@@ -1,7 +1,8 @@
 import {ActionType, SocialUrls} from '../shared/shared.model';
 import {
   GetAllPlayersInTeamPayload,
-  GetNext5EventsPayload
+  GetNext5EventsPayload,
+  GetLast5EventsPayload,
 } from '../../../services/foottyAPI/models';
 
 // Redux
@@ -15,17 +16,25 @@ export interface FoottyAPITeamActionCreators {
   getNext5EventsRequest(): any;
   getNext5EventsComplete(): any;
   getNext5EventsFail(): any;
+  getLast5Events(payload: GetLast5EventsPayload): any;
+  getLast5EventsRequest(): any;
+  getLast5EventsComplete(): any;
+  getLast5EventsFail(): any;
 }
 
 export interface FoottyAPITeamState {
   allPlayersInTeam: {[playerId: string]: ObjectizedPlayerInTeam} | null;
-  next5Events: {[eventId: string]: ObjectizedEvent} | null;
+  next5Events: {[eventId: string]: ObjectizedNextEvent} | null;
+  last5Events: {[eventId: string]: ObjectizedLastEvent} | null;
   isGetAllPlayersInTeamLoading: boolean;
   isGetAllPlayersInTeamLoaded: boolean;
   getAllPlayersInTeamError: string | null;
   isGetNext5EventsLoading: boolean;
   isGetNext5EventsLoaded: boolean;
   getNext5EventsError: string | null;
+  isGetLast5EventsLoading: boolean;
+  isGetLast5EventsLoaded: boolean;
+  getLast5EventsError: string | null;
 }
 
 // Redux-Saga
@@ -34,6 +43,9 @@ export interface GetAllPlayersInTeamAction extends ActionType {
 }
 export interface GetNext5EventsAction extends ActionType {
   payload: GetNext5EventsPayload;
+}
+export interface GetLast5EventsAction extends ActionType {
+  payload: GetLast5EventsPayload;
 }
 
 export interface Player {
@@ -158,7 +170,7 @@ export interface Event {
 export interface GetNext5EventsResponse {
   events: Event[];
 }
-export interface ObjectizedEvent {
+export interface ObjectizedNextEvent {
   idEvent: string;
   strEvent: string;
   strFilename: string;
@@ -167,6 +179,29 @@ export interface ObjectizedEvent {
   strHomeTeam: string;
   strAwayTeam: string;
   intRound: string | null;
+  dateEvent: string;
+  strTime: string;
+  idHomeTeam: string;
+  idAwayTeam: string;
+}
+export interface GetLast5EventsResponse {
+  results: Event[];
+}
+export interface ObjectizedLastEvent {
+  idEvent: string;
+  strEvent: string;
+  strFilename: string;
+  idLeague: string;
+  strLeague: string;
+  strHomeTeam: string;
+  strAwayTeam: string;
+  intRound: string | null;
+  strHomeGoalDetails: string | null;
+  strAwayGoalDetails: string | null;
+  strHomeYellowCards: string | null;
+  strAwayYellowCards: string | null;
+  strHomeRedCards: string | null;
+  strAwayRedCards: string | null;
   dateEvent: string;
   strTime: string;
   idHomeTeam: string;

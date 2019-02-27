@@ -3,6 +3,7 @@ import {createAsyncActionCreator} from '../../../lib/functions/sagaAction';
 import {
   GET_ALL_PLAYERS_IN_TEAM,
   GET_NEXT_5_EVENTS,
+  GET_LAST_5_EVENTS,
 } from '../../modules/foottyAPI/foottyAPI-team.module';
 import {
   GetAllPlayersInTeamAction,
@@ -11,20 +12,24 @@ import {
   Player,
   GetNext5EventsAction,
   GetNext5EventsResponse,
-  ObjectizedEvent,
+  ObjectizedNextEvent,
+  GetLast5EventsAction,
+  GetLast5EventsResponse,
+  ObjectizedLastEvent,
   Event,
 } from '../../models/foottyAPI/foottyAPI-team.model';
 import foottyAPIService from '../../../services/foottyAPI/foottyAPI.service';
 
 export const getAllPlayersInTeamAsyncActionCreator = createAsyncActionCreator(GET_ALL_PLAYERS_IN_TEAM);
 export const getNext5EventsAsyncActionCreator = createAsyncActionCreator(GET_NEXT_5_EVENTS);
+export const getLast5EventsAsyncActionCreator = createAsyncActionCreator(GET_LAST_5_EVENTS);
 
 export function* getNext5Events(action: GetNext5EventsAction) {
   yield put(getNext5EventsAsyncActionCreator.request());
 
   try {
     const response: GetNext5EventsResponse = yield call(() => foottyAPIService.getNext5Events(action.payload));
-    const events: { [eventId: string]: ObjectizedEvent } = response.events.reduce((acc: { [eventId: string]: ObjectizedEvent }, event: Event) => {
+    const events: { [eventId: string]: ObjectizedNextEvent } = response.events.reduce((acc: { [eventId: string]: ObjectizedNextEvent }, event: Event) => {
       return {
         ...acc,
         [event.idEvent]: {
@@ -47,6 +52,43 @@ export function* getNext5Events(action: GetNext5EventsAction) {
     yield put(getNext5EventsAsyncActionCreator.success(events));
   } catch (error) {
     yield put(getNext5EventsAsyncActionCreator.fail());
+  }
+}
+
+export function* getLast5Events(action: GetLast5EventsAction) {
+  yield put(getLast5EventsAsyncActionCreator.request());
+
+  try {
+    const response: GetLast5EventsResponse = yield call(() => foottyAPIService.getLast5Events(action.payload));
+    const events: { [eventId: string]: ObjectizedLastEvent } = response.results.reduce((acc: { [eventId: string]: ObjectizedLastEvent }, event: Event) => {
+      return {
+        ...acc,
+        [event.idEvent]: {
+          idEvent: event.idEvent,
+          strEvent: event.strEvent,
+          strFilename: event.strFilename,
+          idLeague: event.idLeague,
+          strLeague: event.strLeague,
+          strHomeTeam: event.strHomeTeam,
+          strAwayTeam: event.strAwayTeam,
+          intRound: event.intRound ? event.intRound : null,
+          strHomeGoalDetails: event.strHomeGoalDetails ? event.strHomeGoalDetails : null,
+          strAwayGoalDetails: event.strAwayGoalDetails ? event.strAwayGoalDetails : null,
+          strHomeYellowCards: event.strHomeYellowCards ? event.strHomeYellowCards : null,
+          strAwayYellowCards: event.strAwayYellowCards ? event.strAwayYellowCards : null,
+          strHomeRedCards: event.strHomeRedCards ? event.strHomeRedCards : null,
+          strAwayRedCards: event.strAwayRedCards ? event.strAwayRedCards : null,
+          dateEvent: event.dateEvent,
+          strTime: event.strTime,
+          idHomeTeam: event.idHomeTeam,
+          idAwayTeam: event.idAwayTeam,
+        },
+      };
+    }, {});
+
+    yield put(getLast5EventsAsyncActionCreator.success(events));
+  } catch (error) {
+    yield put(getLast5EventsAsyncActionCreator.fail());
   }
 }
 
@@ -87,5 +129,6 @@ export default function* foottyAPITeamSaga() {
   yield all([
     takeLatest(GET_ALL_PLAYERS_IN_TEAM.INDEX as any, getAllPlayersInTeam),
     takeLatest(GET_NEXT_5_EVENTS.INDEX as any, getNext5Events),
+    takeLatest(GET_LAST_5_EVENTS.INDEX as any, getLast5Events),
   ])
 }
