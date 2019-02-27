@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {RouteComponentProps} from 'react-router';
 import {FoottyAPIActions} from '../../store/actionCreators';
-import {GetAllPlayersInTeamPayload} from '../../services/foottyAPI/models';
+import {GetAllPlayersInTeamPayload, GetNext5EventsPayload} from '../../services/foottyAPI/models';
 import {withLocale} from '../../contexts/localeContext';
 
 import PageTemplate from '../base/components/PageTemplate/PageTemplate';
@@ -25,6 +25,7 @@ class TeamPage extends React.Component<Props> {
 
   initTeamPage = (teamId: string): void => {
     FoottyAPIActions.getAllPlayersInTeam({teamId} as GetAllPlayersInTeamPayload);
+    FoottyAPIActions.getNext5Events({teamId} as GetNext5EventsPayload);
   };
 
   render() {

@@ -74,7 +74,7 @@ export interface GetNextEventsAction extends ActionType {
 
 export interface LeagueDetails {
   idLeague: string;
-  idSoccerXML: string | null;
+  idSoccerXML: string;
   strSport: string;
   strLeague: string;
   strLeagueAlternate: string | null;
@@ -115,7 +115,7 @@ export interface LeagueDetails {
   strTrophy: string | null;
   strNaming: string | null;
   strComplete: string | null;
-  strLocked: string | null;
+  strLocked: string;
 }
 export interface ObjectizedLeagueDetails {
   leagueId: string;
@@ -195,7 +195,7 @@ export interface TeamInLeague {
   strInstagram: string;
   strKeywords: string;
   strLeague: string | null;
-  strLocked: string | null;
+  strLocked: string;
   strManager: string | null;
   strRSS: string;
   strSport: string | null;

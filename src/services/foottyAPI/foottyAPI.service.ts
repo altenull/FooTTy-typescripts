@@ -5,6 +5,7 @@ import {
   GetAllTeamsInLeaguePayload,
   GetLeagueSeasonsPayload,
   GetLeagueTablePayload,
+  GetNext5EventsPayload,
   GetNextEventsPayload,
   GetAllPlayersInTeamPayload,
   GetFormerTeamsPayload,
@@ -58,6 +59,14 @@ class FoottyAPIService {
     return axios.get(url)
       .then((response) => response.data)
       .catch((error) => console.error(error));
+  };
+
+  getNext5Events = (payload: GetNext5EventsPayload) => {
+    const url: string = `${privateFoottyEndPoint}/eventsnext.php?id=${payload.teamId}`;
+
+    return axios.get(url)
+        .then((response) => response.data)
+        .catch((error) => console.error(error));
   };
 
   getFormerTeams = (payload: GetFormerTeamsPayload) => {

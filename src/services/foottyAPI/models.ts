@@ -15,6 +15,10 @@ export interface GetAllTeamsInLeaguePayload {
   league: string;
 }
 
+export interface GetNext5EventsPayload {
+  teamId: string;
+}
+
 export interface GetNextEventsPayload {
   leagueId: string;
 }
